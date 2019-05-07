@@ -102,13 +102,55 @@ class Ship extends THREE.Mesh {
        
         var ship = bodyMesh.toMesh(material);
 
-        //ship.scale(0.5,0.5,0.5);
+        ship.rotateX(-Math.PI/2);
+        ship.scale.set(0.4,0.4,0.4);
+
         this.add(ship);
     }
 
     update(){
 
+        //No reconoce las variables position.x e .y no se por qué
+        //Pruebas que he hecho:
+        /*Hacer esta funcion fuera del update, hacerla en escena, hacerla con una variable externa,
+        direccion por ejemplo y que lo único que haga el evento sea cambiar esa variable para luego hacer un 
+        switch en el update y cambiarle ahi la posicion al objeto.*/
+
+        var xSpeed = 0.01;
+        var ySpeed = 0.01;
+
+        document.addEventListener('keydown', onDocumentKeyDown, false);
+
+        function  onDocumentKeyDown(event) {
+
+            var keyCode = event.which;
+            
+            switch (event.keyCode) {
+                //W
+                case 87:
+                    this.ship.position.y += ySpeed;
+                    break;
+                
+                //S
+                case 83:
+                    this.ship.position.y -= ySpeed;
+                    break;
+                
+                //A
+                case 65:
+                    this.ship.position.x -= xSpeed;
+                    break;
+                
+                //D
+                case 68:
+                    this.ship.position.x += xSpeed;
+                    break;
+                
+                //Space Bar
+                case 32:
+                    this.ship.position.set(0, 0, 0);
+                    break;
+            }
+        }
     }
-
-
 }
