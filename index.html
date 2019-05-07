@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Geometria Basica 3D</title>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="libs/three.min.js"></script>
+    <script type="text/javascript" src="libs/jquery.js"></script>
+    <script type="text/javascript" src="libs/dat.gui.js"></script>
+    <script type="text/javascript" src="libs/TrackballControls.js"></script>
+    <script type="text/javascript" src="Ship.js"></script>
+    <script type="text/javascript" src="Track.js"></script>
+    <script type="text/javascript" src="MyScene.js"></script>
+    <script type="text/javascript" src="libs/ThreeBSP.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+    
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        javascript: (function () {
+            var script = document.createElement('script'); script.onload = function () {
+                var stats = new Stats(); document.body.appendChild(stats.dom);
+                requestAnimationFrame(function loop() { stats.update(); requestAnimationFrame(loop) });
+            };
+            script.src = '//mrdoob.github.io/stats.js/build/stats.min.js'; document.head.appendChild(script);
+        })()
+    </script>
+
+    <!-- Div which will hold the Output -->
+    <div id="WebGL-output">
+    </div>
+</body>
+
+</html>
