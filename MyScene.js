@@ -27,8 +27,8 @@ class MyScene extends THREE.Scene {
     // Por último creamos el objeto de revolucion, como una instancia de una clase propia, que gestionará su creación y la interacción con la misma
     this.ship = new Ship();
     this.add(this.ship);
-    //this.track = new Track();
-    //this.add(this.track);
+    this.track = new Track();
+    this.add(this.track);
   }
 
   createCamera(unRenderer) {
