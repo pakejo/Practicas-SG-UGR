@@ -52,35 +52,6 @@ function onWindowResize () {
   renderer.setSize (window.innerWidth, window.innerHeight);
 }
 
-
-
-
-/*function  onDocumentKeyDown(event) {
-
-    var keyCode = event.which;
-
-        //W
-        if(keyCode == 87)
-            scene.getShip().run();
-
-        //A
-        if(keyCode == 65){
-            scene.getShip().left();
-        }
-
-        //D
-        if(keyCode == 68){
-          scene.getShip().right();
-        }
-
-        //S
-        if(keyCode == 83){
-          scene.getShip().brake();
-        }
-    
-}*/
-
-
 /// La función principal
 $(function () {
   // Se crea el renderer
