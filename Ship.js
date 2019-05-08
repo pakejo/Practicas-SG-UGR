@@ -223,5 +223,17 @@ class Ship extends THREE.Mesh {
                 this.ship.translateY(this.movement*this.Speed);
             }
         }
+
+        /*if(!this.keyboard.pressed("up+d")){
+            if(this.Speed > 0.0)
+                this.Speed -= 0.01;
+            else{
+                this.delta = this.Clock.getDelta();
+                this.movement = 50*this.delta;
+                this.ship.translateY(this.movement*this.Speed);
+            }
+        }*/
+
+
     }
 }
