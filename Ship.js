@@ -2,7 +2,7 @@ class Ship extends THREE.Mesh {
 
     constructor(){
         super();
-
+        this.positionZ = 0.0;
         var material = new THREE.MeshNormalMaterial();
         
        
@@ -100,22 +100,17 @@ class Ship extends THREE.Mesh {
         var boosters = booster2bsp.subtract(booster2deepbsp).union(booster1bsp.subtract(booster1deepbsp)).union(booster3bsp.subtract(booster3deepbsp));
         var bodyMesh = bodybsp.union(driverbsp).union(gun1bsp).union(gun2bsp).union(wings).union(boosters);
        
-        var ship = bodyMesh.toMesh(material);
+        this.ship = bodyMesh.toMesh(material);
 
-        ship.rotateX(-Math.PI/2);
-        ship.scale.set(0.4,0.4,0.4);
+        this.ship.rotateX(-Math.PI/2);
+        this.ship.scale.set(0.2,0.2,0.2);
 
-        this.add(ship);
+        this.add(this.ship);
     }
 
     update(){
 
-        //No reconoce las variables position.x e .y no se por qué
-        //Pruebas que he hecho:
-        /*Hacer esta funcion fuera del update, hacerla en escena, hacerla con una variable externa,
-        direccion por ejemplo y que lo único que haga el evento sea cambiar esa variable para luego hacer un 
-        switch en el update y cambiarle ahi la posicion al objeto.*/
-
+        //No reconoce las variables this.ship.position.x y this.ship.position.y
         var xSpeed = 0.01;
         var ySpeed = 0.01;
 
@@ -126,9 +121,10 @@ class Ship extends THREE.Mesh {
             var keyCode = event.which;
             
             switch (event.keyCode) {
+                
                 //W
                 case 87:
-                    this.ship.position.y += ySpeed;
+                    this.ship.applyMatrix(new THREE.Matrix4().makeTranslation(0, 0, this.PositionZ += ySpeed));
                     break;
                 
                 //S
