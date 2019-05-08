@@ -2,7 +2,10 @@ class Ship extends THREE.Mesh {
 
     constructor(){
         super();
-        this.ySpeed = 0.1;
+        this.Clock = new THREE.Clock();
+        this.delta = this.Clock.getDelta();
+        this.movement = 50*this.delta;
+        this.keyboard = new THREEx.KeyboardState();
 
         var material = new THREE.MeshNormalMaterial();
         
@@ -106,15 +109,82 @@ class Ship extends THREE.Mesh {
         this.ship.rotateX(-Math.PI/2);
         this.ship.scale.set(0.2,0.2,0.2);
 
+        this.ship.updateMorphTargets();
+        
+
         this.add(this.ship);
 
 
     }
 
-    avanzar(){
-        this.ship.position.z -= this.ySpeed;
+    run(){
+        this.delta = this.Clock.getDelta();
+        this.movement = 50*this.delta;
+        this.ship.translateY(this.movement);
     }
-    girarIzda(){}
-    girarDcha(){}
 
+    left(){
+        this.delta = this.Clock.getDelta();
+        this.movement = 50*this.delta;
+        this.ship.rotation.z +=this.delta*2;
+        
+    }
+    
+    right(){
+        this.delta = this.Clock.getDelta();
+        this.movement = 50*this.delta;
+        this.ship.rotation.z -= this.delta*2;
+        
+    }
+
+    brake(){
+        this.delta = this.Clock.getDelta();
+        this.movement = 50*this.delta;
+        this.ship.translateY(-this.movement);
+    }
+
+    update(){
+        
+        if(this.keyboard.pressed("w+a")){
+            this.delta = this.Clock.getDelta();
+            this.movement = 50*this.delta;
+            this.ship.translateY(this.movement);
+            this.ship.rotation.z +=this.delta*2;
+        }
+
+        if(this.keyboard.pressed("w+d")){
+            this.delta = this.Clock.getDelta();
+            this.movement = 50*this.delta;
+            this.ship.translateY(this.movement);
+            this.ship.rotation.z -= this.delta*2;
+        }
+
+        if(this.keyboard.pressed("s+a")){
+        this.delta = this.Clock.getDelta();
+        this.movement = 50*this.delta;
+        this.ship.translateY(-this.movement);
+        this.ship.rotation.z -= this.delta*2;
+        }
+
+        if(this.keyboard.pressed("s+d")){
+            this.delta = this.Clock.getDelta();
+            this.movement = 50*this.delta;
+            this.ship.translateY(-this.movement);
+            this.ship.rotation.z += this.delta*2;
+            }
+
+
+        if(this.keyboard.pressed("d"))
+        this.right();
+
+        if(this.keyboard.pressed("a"))
+        this.left();
+
+        if(this.keyboard.pressed("w"))
+        this.run();
+
+        if(this.keyboard.pressed("s"))
+        this.brake();
+
+    }
 }
