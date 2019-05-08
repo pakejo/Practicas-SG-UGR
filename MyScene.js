@@ -104,6 +104,10 @@ class MyScene extends THREE.Scene {
     this.camera.updateProjectionMatrix();
   }
 
+  getShip() {
+    return this.ship;
+  }
+
   update() {
     // Se actualizan los elementos de la escena para cada frame
     // Se actualiza la intensidad de la luz con lo que haya indicado el usuario en la gui
@@ -114,6 +118,5 @@ class MyScene extends THREE.Scene {
 
     // Se actualiza la posición de la cámara según su controlador
     this.cameraControl.update();
-    this.ship.update();
   }
 }

@@ -2,7 +2,8 @@ class Ship extends THREE.Mesh {
 
     constructor(){
         super();
-        this.positionZ = 0.0;
+        this.ySpeed = 0.1;
+
         var material = new THREE.MeshNormalMaterial();
         
        
@@ -106,47 +107,14 @@ class Ship extends THREE.Mesh {
         this.ship.scale.set(0.2,0.2,0.2);
 
         this.add(this.ship);
+
+
     }
 
-    update(){
-
-        //No reconoce las variables this.ship.position.x y this.ship.position.y
-        var xSpeed = 0.01;
-        var ySpeed = 0.01;
-
-        document.addEventListener('keydown', onDocumentKeyDown, false);
-
-        function  onDocumentKeyDown(event) {
-
-            var keyCode = event.which;
-            
-            switch (event.keyCode) {
-                
-                //W
-                case 87:
-                    this.ship.applyMatrix(new THREE.Matrix4().makeTranslation(0, 0, this.PositionZ += ySpeed));
-                    break;
-                
-                //S
-                case 83:
-                    this.ship.position.y -= ySpeed;
-                    break;
-                
-                //A
-                case 65:
-                    this.ship.position.x -= xSpeed;
-                    break;
-                
-                //D
-                case 68:
-                    this.ship.position.x += xSpeed;
-                    break;
-                
-                //Space Bar
-                case 32:
-                    this.ship.position.set(0, 0, 0);
-                    break;
-            }
-        }
+    avanzar(){
+        this.ship.position.z -= this.ySpeed;
     }
+    girarIzda(){}
+    girarDcha(){}
+
 }

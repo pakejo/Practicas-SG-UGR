@@ -52,6 +52,43 @@ function onWindowResize () {
   renderer.setSize (window.innerWidth, window.innerHeight);
 }
 
+/// Listener para el movimiento de la nave
+
+
+function  onDocumentKeyDown(event) {
+
+    var keyCode = event.which;
+    
+    switch (event.keyCode) {
+        
+        //W
+        case 87:
+            scene.getShip().avanzar();
+            break;
+        
+        //S
+        /*case 83:
+            this.ship.position.y -= ySpeed;
+            break;
+        
+        //A
+        case 65:
+            this.ship.position.x -= xSpeed;
+            break;
+        
+        //D
+        case 68:
+            this.ship.position.x += xSpeed;
+            break;
+        
+        //Space Bar
+        case 32:
+            this.ship.position.set(0, 0, 0);
+            break;*/
+    }
+}
+
+
 /// La función principal
 $(function () {
   // Se crea el renderer
@@ -63,6 +100,7 @@ $(function () {
   // listeners
   // Cada vez que el usuario cambie el tamaño de la ventana se llama a la función que actualiza la cámara y el renderer
   window.addEventListener ("resize", onWindowResize);
+  document.addEventListener('keydown', onDocumentKeyDown, false);
   
   // Se crea una interfaz gráfica de usuario vacia
   gui = new dat.GUI();
