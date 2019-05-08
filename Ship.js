@@ -6,6 +6,7 @@ class Ship extends THREE.Mesh {
         this.delta = this.Clock.getDelta();
         this.movement = 50*this.delta;
         this.keyboard = new THREEx.KeyboardState();
+        this.Speed = 1.0;
 
         var material = new THREE.MeshNormalMaterial();
         
@@ -120,7 +121,7 @@ class Ship extends THREE.Mesh {
     run(){
         this.delta = this.Clock.getDelta();
         this.movement = 50*this.delta;
-        this.ship.translateY(this.movement);
+        this.ship.translateY(this.movement*this.Speed);
     }
 
     left(){
@@ -143,48 +144,84 @@ class Ship extends THREE.Mesh {
         this.ship.translateY(-this.movement);
     }
 
+    //Ship controls--------------------------------
     update(){
         
-        if(this.keyboard.pressed("w+a")){
+        if(this.keyboard.pressed("up+left")){
             this.delta = this.Clock.getDelta();
             this.movement = 50*this.delta;
-            this.ship.translateY(this.movement);
-            this.ship.rotation.z +=this.delta*2;
+            this.ship.translateY(this.movement*this.Speed);
+            this.ship.rotation.z +=this.delta*1.5;
         }
 
-        if(this.keyboard.pressed("w+d")){
+        if(this.keyboard.pressed("up+right")){
             this.delta = this.Clock.getDelta();
             this.movement = 50*this.delta;
-            this.ship.translateY(this.movement);
-            this.ship.rotation.z -= this.delta*2;
+            this.ship.translateY(this.movement*this.Speed);
+            this.ship.rotation.z -= this.delta*1.5;
         }
 
-        if(this.keyboard.pressed("s+a")){
-        this.delta = this.Clock.getDelta();
-        this.movement = 50*this.delta;
-        this.ship.translateY(-this.movement);
-        this.ship.rotation.z -= this.delta*2;
+        if(this.keyboard.pressed("down+left")){
+            this.delta = this.Clock.getDelta();
+            this.movement = 50*this.delta;
+            this.ship.translateY(-this.movement*this.Speed);
+            this.ship.rotation.z -= this.delta*1.5;
         }
 
-        if(this.keyboard.pressed("s+d")){
+        if(this.keyboard.pressed("down+right")){
             this.delta = this.Clock.getDelta();
             this.movement = 50*this.delta;
             this.ship.translateY(-this.movement);
-            this.ship.rotation.z += this.delta*2;
-            }
+            this.ship.rotation.z += this.delta*1.5;
+        }
+
+        //Air Breakers-----
+        if(this.keyboard.pressed("up+a")){
+            if(this.Speed > 0.0)
+                this.Speed -= 0.02;
+
+            this.delta = this.Clock.getDelta();
+            this.movement = 50*this.delta;
+            this.ship.translateY(this.movement*this.Speed);
+            this.ship.rotation.z +=this.delta*2;
+        }
+
+        if(this.keyboard.pressed("up+d")){
+            if(this.Speed > 0.0)
+                this.Speed -= 0.02;
+
+            this.delta = this.Clock.getDelta();
+            this.movement = 50*this.delta;
+            this.ship.translateY(this.movement*this.Speed);
+            this.ship.rotation.z -=this.delta*2;
+        }
+        //------------------
 
 
-        if(this.keyboard.pressed("d"))
+        if(this.keyboard.pressed("right"))
         this.right();
 
-        if(this.keyboard.pressed("a"))
+        if(this.keyboard.pressed("left"))
         this.left();
 
-        if(this.keyboard.pressed("w"))
-        this.run();
+        if(this.keyboard.pressed("up")){
+            if(this.Speed <= 3.0)
+                this.Speed +=0.01;
 
-        if(this.keyboard.pressed("s"))
+            this.run();
+        }
+
+        if(this.keyboard.pressed("down"))
         this.brake();
 
+        if(!this.keyboard.pressed("up")){
+            if(this.Speed > 0.0)
+                this.Speed -= 0.01;
+            else{
+                this.delta = this.Clock.getDelta();
+                this.movement = 50*this.delta;
+                this.ship.translateY(this.movement*this.Speed);
+            }
+        }
     }
 }
