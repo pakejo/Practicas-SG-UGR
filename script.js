@@ -63,7 +63,6 @@ $(function () {
   // listeners
   // Cada vez que el usuario cambie el tamaño de la ventana se llama a la función que actualiza la cámara y el renderer
   window.addEventListener ("resize", onWindowResize);
-  //document.addEventListener('keydown', onDocumentKeyDown, false);
   
   // Se crea una interfaz gráfica de usuario vacia
   gui = new dat.GUI();

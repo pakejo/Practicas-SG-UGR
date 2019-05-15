@@ -116,12 +116,34 @@ class Ship extends THREE.Mesh {
         this.add(this.ship);
 
 
+        // Camara del objeto
+        this.camera = this.createCamera();
+        this.ship.add(this.camera);
+
+
+    }
+
+    createCamera() {
+        var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 4000);
+        // También se indica dónde se coloca
+        camera.position.set(this.ship.position.x, this.ship.position.z - 50, this.ship.position.y + 30);
+        // Y hacia dónde mira
+        var look = new THREE.Vector3(this.ship.position.x, this.ship.position.y , this.ship.position.z);
+        camera.lookAt(look);
+
+        return camera;
+    }
+
+    getCamera() {
+        return this.camera;
     }
 
     run(){
         this.delta = this.Clock.getDelta();
         this.movement = 50*this.delta;
         this.ship.translateY(this.movement*this.Speed);
+
+        //this.ship.applyMatrix(new THREE.Matrix4().makeTranslation(this.ship.position.x, this.movement*this.Speed, this.ship.position.z) );
     }
 
     left(){
