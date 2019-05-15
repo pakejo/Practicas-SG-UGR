@@ -52,35 +52,6 @@ function onWindowResize () {
   renderer.setSize (window.innerWidth, window.innerHeight);
 }
 
-
-
-
-/*function  onDocumentKeyDown(event) {
-
-    var keyCode = event.which;
-
-        //W
-        if(keyCode == 87)
-            scene.getShip().run();
-
-        //A
-        if(keyCode == 65){
-            scene.getShip().left();
-        }
-
-        //D
-        if(keyCode == 68){
-          scene.getShip().right();
-        }
-
-        //S
-        if(keyCode == 83){
-          scene.getShip().brake();
-        }
-    
-}*/
-
-
 /// La función principal
 $(function () {
   // Se crea el renderer
@@ -92,7 +63,6 @@ $(function () {
   // listeners
   // Cada vez que el usuario cambie el tamaño de la ventana se llama a la función que actualiza la cámara y el renderer
   window.addEventListener ("resize", onWindowResize);
-  //document.addEventListener('keydown', onDocumentKeyDown, false);
   
   // Se crea una interfaz gráfica de usuario vacia
   gui = new dat.GUI();

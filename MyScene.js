@@ -8,6 +8,8 @@ class MyScene extends THREE.Scene {
   constructor(unRenderer) {
     super();
 
+    this.updateMatrixWorld(true);
+
     // Se añade a la gui los controles para manipular los elementos de esta clase
     this.createGUI();
 
@@ -18,7 +20,7 @@ class MyScene extends THREE.Scene {
     this.createLights();
 
     // Tendremos una cámara con un control de movimiento con el ratón
-    this.createCamera(unRenderer);
+    //this.createCamera(unRenderer);
 
     // Y unos ejes. Imprescindibles para orientarnos sobre dónde están las cosas
     this.axis = new THREE.AxesHelper(5);
@@ -99,16 +101,12 @@ class MyScene extends THREE.Scene {
   getCamera() {
     // En principio se devuelve la única cámara que tenemos
     // Si hubiera varias cámaras, este método decidiría qué cámara devuelve cada vez que es consultado
-    return this.camera;
+    return this.ship.getCamera();
   }
 
   setCameraAspect(ratio) {
     this.camera.aspect = ratio;
     this.camera.updateProjectionMatrix();
-  }
-
-  getShip() {
-    return this.ship;
   }
 
   update() {
@@ -120,7 +118,7 @@ class MyScene extends THREE.Scene {
     this.axis.visible = this.guiControls.axisOnOff;
 
     // Se actualiza la posición de la cámara según su controlador
-    this.cameraControl.update();
+    //this.cameraControl.update();
     this.ship.update();
   }
 }
