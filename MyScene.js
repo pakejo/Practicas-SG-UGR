@@ -29,6 +29,9 @@ class MyScene extends THREE.Scene {
     this.add(this.ship);
     //this.track = new Track();
     //this.add(this.track);
+
+    this.world = new World();
+    this.add(this.world);
   }
 
   createCamera(unRenderer) {

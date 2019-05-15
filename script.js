@@ -88,7 +88,7 @@ $(function () {
   
   // La salida del renderer se muestra en un DIV de la página index.html
   $("#WebGL-output").append(renderer.domElement);
-  
+
   // listeners
   // Cada vez que el usuario cambie el tamaño de la ventana se llama a la función que actualiza la cámara y el renderer
   window.addEventListener ("resize", onWindowResize);
