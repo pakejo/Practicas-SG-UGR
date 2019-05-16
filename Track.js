@@ -17,12 +17,14 @@ class Track extends THREE.Mesh {
                     }, null, null, null, false);
             });
         
-            this.scale.set(20,20,20);
+            this.scale.set(90,90,90);
+
+            
     }
 
 
     spline() {
-         this.spline = new THREE.CatmullRomCurev3(
+        var spline = new THREE.CatmullRomCurve3([
 
             new THREE.Vector3( -0.581841, 0.151374, -1.466418),
             new THREE.Vector3( -0.530919, 0.151374, -1.491239),
@@ -192,6 +194,8 @@ class Track extends THREE.Mesh {
             new THREE.Vector3( -0.726590, 0.147015, -1.394965),
             new THREE.Vector3( -0.656882, 0.149307, -1.429318),
             new THREE.Vector3( -0.607881, 0.150825, -1.453551),
-         )
+        ])
+
+        return spline;
     }
 }
