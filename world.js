@@ -1,22 +1,35 @@
-
-class World extends THREE.Mesh {
-
-    constructor() {
+class World extends THREE.Mesh{
+    constructor(){
         super();
-        this.createBuildings();
+
+        this.geometry = new THREE.CubeGeometry(1000,1000,1000);
+
+        this.texture = 
+        [
+            new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('imgs/darkcity_ft.jpg'),side: THREE.DoubleSide}),
+            new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('imgs/darkcity_bk.jpg'),side: THREE.DoubleSide}),
+            new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('imgs/darkcity_up.jpg'),side: THREE.DoubleSide}),
+            new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('imgs/desertsky_up.tga'),side: THREE.DoubleSide}),
+            new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('imgs/darkcity_rt.jpg'),side: THREE.DoubleSide}),
+            new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('imgs/darkcity_lf.jpg'),side: THREE.DoubleSide})  
+        ];
+
+        /*var shader = THREE.ShaderLib["cube"];
+        var uniforms = THREE.UniformsUtils.clone( shader.uniforms );
+        uniforms['tCube'].texture= this.texture;  
+
+        this.material = new THREE.ShaderMaterial({
+            fragmentShader    : shader.fragmentShader,
+            vertexShader  : shader.vertexShader,
+            uniforms  : uniforms
+        });*/
+
+        this.material = new THREE.MeshFaceMaterial(this.texture);
+        this.world = new THREE.Mesh(this.geometry, this.material);
+
+        this.add(this.world);
+    
     }
 
-    createBuildings() {
-        /*var texture = new THREE.TextureLoader().load('imgs/texturaEdificio.jpg');
-        texture.wrapS = THREE.RepeatWrapping;
-        texture.wrapT = THREE.RepeatWrapping;
-        texture.repeat.set( 2, 2 );*/
 
-        var building_1 = new THREE.Mesh(new THREE.BoxGeometry(60, 40, 60));
-        building_1.material = new THREE.MeshBasicMaterial ({ color: 0x0000 });
-
-        building_1.applyMatrix(new THREE.Matrix4().makeScale(1, 10, 1));
-
-        this.add(building_1);
-    }
 }

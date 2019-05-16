@@ -126,7 +126,7 @@ class Ship extends THREE.Mesh {
     createCamera() {
         var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 4000);
         // También se indica dónde se coloca
-        camera.position.set(this.ship.position.x, this.ship.position.z - 50, this.ship.position.y + 30);
+        camera.position.set(this.ship.position.x, this.ship.position.z - 150, this.ship.position.y + 30);
         // Y hacia dónde mira
         var look = new THREE.Vector3(this.ship.position.x, this.ship.position.y , this.ship.position.z);
         camera.lookAt(look);
@@ -227,8 +227,8 @@ class Ship extends THREE.Mesh {
         this.left();
 
         if(this.keyboard.pressed("up")){
-            if(this.Speed <= 3.0)
-                this.Speed +=0.01;
+            if(this.Speed <= 10.0)
+                this.Speed +=0.05;
 
             this.run();
         }
