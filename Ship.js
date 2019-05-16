@@ -110,7 +110,7 @@ class Ship extends THREE.Mesh {
         var material = new THREE.MeshPhongMaterial ({map: texture});
         this.ship = bodyMesh.toMesh(material);
 
-        this.ship.rotateX(-Math.PI/2);
+        //this.ship.rotateX(-Math.PI/2);
         this.ship.scale.set(0.1,0.1,0.1);
 
         this.ship.updateMorphTargets();
@@ -257,9 +257,21 @@ class Ship extends THREE.Mesh {
         var spline = this.spline();
 
         var posicion = spline.getPointAt(t);
-        this.ship.position.copy(posicion);
-        var tangente = spline.getTangentAt(t);
-        posicion.add(tangente);
+        //this.ship.position.set(0,posicion.y,0);
+        this.ship.position.set(posicion.x,posicion.y,posicion.z);
+
+        var tangent = spline.getTangentAt(t).normalize();
+        var up = new THREE.Vector3( 0, 1, 0 );
+        var axis = new THREE.Vector3( );
+        axis.crossVectors( up, tangent ).normalize();
+    
+        
+        var radians = Math.acos( up.dot( tangent ) );
+            
+        
+        
+        this.ship.quaternion.setFromAxisAngle( axis, radians );
+        posicion.add(tangent);
         
 
 
