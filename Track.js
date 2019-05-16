@@ -17,7 +17,7 @@ class Track extends THREE.Mesh {
                     }, null, null, null, false);
             });
         
-            this.scale.set(90,90,90);
+            this.scale.set(110,110,110);
 
             
     }

@@ -8,7 +8,8 @@ class Ship extends THREE.Mesh {
         this.keyboard = new THREEx.KeyboardState();
         this.Speed = 1.0;
 
-        var material = new THREE.MeshNormalMaterial();
+        var texture = new THREE.TextureLoader().load('../imgs/ship_texture.jpg');
+        
         
        
         //Body, driver and frontal guns-------
@@ -104,7 +105,9 @@ class Ship extends THREE.Mesh {
         var wings = unionwingsbsp.union(gun3bsp).union(gun4bsp).union(frontal2bsp.subtract(frontal2partbsp).union((frontal1bsp).subtract(frontal1partbsp))).subtract(back1partbsp).subtract(back2partbsp);
         var boosters = booster2bsp.subtract(booster2deepbsp).union(booster1bsp.subtract(booster1deepbsp)).union(booster3bsp.subtract(booster3deepbsp));
         var bodyMesh = bodybsp.union(driverbsp).union(gun1bsp).union(gun2bsp).union(wings).union(boosters);
-       
+
+
+        var material = new THREE.MeshPhongMaterial ({map: texture});
         this.ship = bodyMesh.toMesh(material);
 
         this.ship.rotateX(-Math.PI/2);
@@ -264,8 +267,8 @@ class Ship extends THREE.Mesh {
 
     spline() {
 
-        var escala = 90;
-        var yAxis = 4.3;
+        var escala = 110;
+        var yAxis = 5;
 
         var spline = new THREE.CatmullRomCurve3([
 

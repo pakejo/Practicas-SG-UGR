@@ -32,8 +32,8 @@ class MyScene extends THREE.Scene {
     this.track = new Track();
     this.add(this.track);
 
-    /*this.world = new World();
-    this.add(this.world);*/
+    this.world = new World();
+    this.add(this.world);
   }
 
   createCamera(unRenderer) {
