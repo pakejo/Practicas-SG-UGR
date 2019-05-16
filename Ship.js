@@ -124,9 +124,9 @@ class Ship extends THREE.Mesh {
     }
 
     createCamera() {
-        var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 4000);
+        var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 4000000);
         // También se indica dónde se coloca
-        camera.position.set(this.ship.position.x, this.ship.position.z - 150, this.ship.position.y + 30);
+        camera.position.set(this.ship.position.x, this.ship.position.z - 150, this.ship.position.y + 20);
         // Y hacia dónde mira
         var look = new THREE.Vector3(this.ship.position.x, this.ship.position.y , this.ship.position.z);
         camera.lookAt(look);
@@ -200,7 +200,7 @@ class Ship extends THREE.Mesh {
         //Air Breakers-----
         if(this.keyboard.pressed("up+a")){
             if(this.Speed > 0.0)
-                this.Speed -= 0.02;
+                this.Speed -= 0.1;
 
             this.delta = this.Clock.getDelta();
             this.movement = 50*this.delta;
@@ -210,7 +210,7 @@ class Ship extends THREE.Mesh {
 
         if(this.keyboard.pressed("up+d")){
             if(this.Speed > 0.0)
-                this.Speed -= 0.02;
+                this.Speed -= 0.1;
 
             this.delta = this.Clock.getDelta();
             this.movement = 50*this.delta;
@@ -228,7 +228,7 @@ class Ship extends THREE.Mesh {
 
         if(this.keyboard.pressed("up")){
             if(this.Speed <= 10.0)
-                this.Speed +=0.05;
+                this.Speed +=0.02;
 
             this.run();
         }

@@ -2,7 +2,7 @@ class World extends THREE.Mesh{
     constructor(){
         super();
 
-        this.geometry = new THREE.CubeGeometry(1000,1000,1000);
+        this.geometry = new THREE.CubeGeometry(10000,10000,10000);
 
         this.texture = 
         [
