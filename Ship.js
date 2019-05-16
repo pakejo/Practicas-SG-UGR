@@ -108,7 +108,7 @@ class Ship extends THREE.Mesh {
         this.ship = bodyMesh.toMesh(material);
 
         this.ship.rotateX(-Math.PI/2);
-        this.ship.scale.set(0.2,0.2,0.2);
+        this.ship.scale.set(0.1,0.1,0.1);
 
         this.ship.updateMorphTargets();
         
