@@ -110,12 +110,12 @@ class Ship extends THREE.Mesh {
         var material = new THREE.MeshBasicMaterial({ map: texture });
         this.ship = bodyMesh.toMesh(material);
 
-        //this.ship.rotateX(-Math.PI/2);
         this.ship.scale.set(0.1,0.1,0.1);
 
         this.ship.updateMorphTargets();
         
-        this.ship.position.set( -0.581841*20, (0.151374*20) +1 , -1.466418*20 );
+        this.ship.rotateX(-Math.PI/2);
+        this.ship.position.set( -0.581841*20, (0.151374*20) +20 , -1.466418*20 );
 
 
         this.add(this.ship);
@@ -125,6 +125,7 @@ class Ship extends THREE.Mesh {
         this.camera = this.createCamera();
         this.ship.add(this.camera);
 
+        this.t= 0.0;
 
     }
 
@@ -144,9 +145,10 @@ class Ship extends THREE.Mesh {
     }
 
     run() {
+        this.t += 0.01;
         this.delta = this.Clock.getDelta();
         this.movement = 50 * this.delta;
-        this.ship.translateY(this.movement * this.Speed);
+        this.ship.translateY(this.t);
     }
 
     left() {
@@ -249,34 +251,7 @@ class Ship extends THREE.Mesh {
             }
         }
 
-
-        // Camino por el spline
-        /*var time = Date.now();
-        var looptime = 40000;
-        var t = (time % looptime) / looptime;
-        var spline = this.spline();
-
-        console.log(t);
-
-        var posicion = spline.getPointAt(t);
-        //this.ship.position.set(0,posicion.y,0);
-        this.ship.position.set(posicion.x,posicion.y,posicion.z);
-
-        var tangent = spline.getTangentAt(t).normalize();
-        var up = new THREE.Vector3( 0, 1, 0 );
-        var axis = new THREE.Vector3( );
-        axis.crossVectors( up, tangent ).normalize();
-    
-        
-        var radians = Math.acos( up.dot( tangent ) );
-            
-        
-        
-        this.ship.quaternion.setFromAxisAngle( axis, radians );
-        posicion.add(tangent);
-        
-
-
+                
     }
 
     spline() {
