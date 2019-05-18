@@ -44,7 +44,7 @@ class MyScene extends THREE.Scene {
     //-----Quitar el */ para poner la camara de la nave linea 43 y 62
 
 
-   // Para crear una cámara le indicamos
+    // Para crear una cámara le indicamos
     //   El ángulo del campo de visión en grados sexagesimales
     //   La razón de aspecto ancho/alto
     //   Los planos de recorte cercano y lejano
@@ -67,13 +67,13 @@ class MyScene extends THREE.Scene {
 
     //------------------------------------
 
-    /*// Para crear una cámara le indicamos
+   /* // Para crear una cámara le indicamos
     //   El ángulo del campo de visión en grados sexagesimales
     //   La razón de aspecto ancho/alto
     //   Los planos de recorte cercano y lejano
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 400000);
     // También se indica dónde se coloca
-    this.camera.position.set(100, 100, 100);
+    this.camera.position.set(20, 20, 20);
     // Y hacia dónde mira
     var look = new THREE.Vector3(0, 0, 0);
     this.camera.lookAt(look);
@@ -167,7 +167,7 @@ class MyScene extends THREE.Scene {
     this.axis.visible = this.guiControls.axisOnOff;
 
     // Se actualiza la posición de la cámara según su controlador
-    //this.cameraControl.update();
+    this.cameraControl.update();
     this.ship.update();
     //this.checkCollision();
 

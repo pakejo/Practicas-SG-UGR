@@ -29,14 +29,24 @@ class Ship extends THREE.Mesh {
         var driver = new THREE.SphereGeometry(3,32,32);
         var gun1 = new THREE.CylinderGeometry(0.2,0.2,7,32);
         var gun2 = new THREE.CylinderGeometry(0.2,0.2,7,32);
+
+        body.rotateX(-Math.PI/2);
+        driver.rotateX(-Math.PI/2);
+        gun1.rotateX(-Math.PI/2);
+        gun2.rotateX(-Math.PI/2);
+
+        body.rotateY(-Math.PI/2);
+        driver.rotateY(-Math.PI/2);
+        gun1.rotateY(-Math.PI/2);
+        gun2.rotateY(-Math.PI/2);
         
-        gun1.translate(1,16.5,-0.3);
-        gun2.translate(-1,16.5,-0.3);
+        gun1.translate(5,1,1);
+        gun2.translate(5,1,-1);
 
-        driver.translate(0,-5,1.75);
+        driver.translate(-8,2,0);
 
-        body.translate(0,5,0);
-        body.scale(2.4,1,1);
+        body.translate(0,0,0);
+        body.scale(1,1,2.4);
 
         var bodybsp = new ThreeBSP(body);
         var driverbsp = new ThreeBSP(driver);
@@ -57,25 +67,45 @@ class Ship extends THREE.Mesh {
         var back1part = new THREE.BoxGeometry(9,4,0.5);
         var back2part = new THREE.BoxGeometry(9,4,0.5);
 
+        frontal1.rotateX(-Math.PI/2);
+        frontal1part.rotateX(-Math.PI/2);
+        frontal2.rotateX(-Math.PI/2);
+        frontal2part.rotateX(-Math.PI/2);
+        unionwings.rotateX(-Math.PI/2);
+        gun3.rotateX(-Math.PI/2);
+        gun4.rotateX(-Math.PI/2);
+        back1part.rotateX(-Math.PI/2);
+        back2part.rotateX(-Math.PI/2);
 
-        frontal1.translate(-9,0,0);
-        frontal1part.translate(-12,4,0);
-        frontal1part.rotateZ(-Math.PI/10);
-
-        frontal2.translate(9,0,0);
-        frontal2part.translate(12,4,0);
-        frontal2part.rotateZ(Math.PI/10);
-
-        back1part.rotateZ(-Math.PI/4);
-        back2part.rotateZ(Math.PI/4);
-        back1part.translate(-9,-9,0);
-        back2part.translate(9,-9,0);
+        frontal1.rotateY(-Math.PI/2);
+        frontal1part.rotateY(-Math.PI/2);
+        frontal2.rotateY(-Math.PI/2);
+        frontal2part.rotateY(-Math.PI/2);
+        unionwings.rotateY(-Math.PI/2);
+        gun3.rotateY(-Math.PI/2);
+        gun4.rotateY(-Math.PI/2);
+        back1part.rotateY(-Math.PI/2);
+        back2part.rotateY(-Math.PI/2);
 
 
-        unionwings.translate(0,-6.5,0);
+        frontal1.translate(0,0,-9);
+        frontal1part.translate(5,0,11.7);
+        frontal1part.rotateY(Math.PI/10);
 
-        gun3.translate(6,-4,-0.3);
-        gun4.translate(-6,-4,-0.3);
+        frontal2.translate(0,0,9);
+        frontal2part.translate(5,0,-11.7);
+        frontal2part.rotateY(-Math.PI/10);
+
+        back1part.rotateY(-Math.PI/4);
+        back2part.rotateY(Math.PI/4);
+        back1part.translate(-9,0,-11);
+        back2part.translate(-9,0,11);
+
+
+        unionwings.translate(-8.5,0,0);
+
+        gun3.translate(-4,0,6);
+        gun4.translate(-4,0,-6);
 
 
         var frontal1bsp = new ThreeBSP(frontal1);
@@ -98,12 +128,27 @@ class Ship extends THREE.Mesh {
         var booster3 = new THREE.CylinderGeometry(1,1,2,32,32);
         var booster3deep = new THREE.CylinderGeometry(0.8,0.8,2,32,32);
 
-        booster1.translate(0,-11,0.5);
-        booster1deep.translate(0,-11,0.5);
-        booster2.translate(-3,-11,-0.5);
-        booster2deep.translate(-3,-11,-0.5);
-        booster3.translate(3,-11,-0.5);
-        booster3deep.translate(3,-11,-0.5);
+        booster1.rotateX(-Math.PI/2);
+        booster1deep.rotateX(-Math.PI/2);
+        booster2.rotateX(-Math.PI/2);
+        booster2deep.rotateX(-Math.PI/2);
+        booster3.rotateX(-Math.PI/2);
+        booster3deep.rotateX(-Math.PI/2);
+
+        booster1.rotateY(-Math.PI/2);
+        booster1deep.rotateY(-Math.PI/2);
+        booster2.rotateY(-Math.PI/2);
+        booster2deep.rotateY(-Math.PI/2);
+        booster3.rotateY(-Math.PI/2);
+        booster3deep.rotateY(-Math.PI/2);
+
+
+        booster1.translate(-16,0.5,0);
+        booster1deep.translate(-16,0.5,0);
+        booster2.translate(-16,-0.5,3);
+        booster2deep.translate(-16,-0.5,3);
+        booster3.translate(-16,-0.5,-3);
+        booster3deep.translate(-16,-0.5,-3);
 
         var booster1bsp = new ThreeBSP(booster1);
         var booster1deepbsp = new ThreeBSP(booster1deep);
@@ -114,34 +159,29 @@ class Ship extends THREE.Mesh {
 
         
 
-        var wings = unionwingsbsp.union(gun3bsp).union(gun4bsp).union(frontal2bsp.subtract(frontal2partbsp).union((frontal1bsp).subtract(frontal1partbsp))).subtract(back1partbsp).subtract(back2partbsp);
+        var wings = unionwingsbsp.union(gun3bsp).union(gun4bsp).union(frontal2bsp.subtract(frontal2partbsp)).union(frontal1bsp.subtract(frontal1partbsp)).subtract(back1partbsp).subtract(back2partbsp);
         var boosters = booster2bsp.subtract(booster2deepbsp).union(booster1bsp.subtract(booster1deepbsp)).union(booster3bsp.subtract(booster3deepbsp));
         var bodyMesh = bodybsp.union(driverbsp).union(gun1bsp).union(gun2bsp).union(wings).union(boosters);
 
 
         var material = new THREE.MeshPhongMaterial ({map: texture});
-        this.ship = bodyMesh.toMesh(material);
+        this.ship = bodyMesh.toMesh();
 
         this.ship.scale.set(0.1,0.1,0.1);
-
-        this.ship.updateMorphTargets();
-        
-        this.ship.rotateX(-Math.PI/2);
-        this.ship.position.set( -0.581841*20, (0.151374*20) +20 , -1.466418*20 );
-
-
-        this.add(this.ship);
 
         // Camara del objeto
         this.camera = this.createCamera();
         this.ship.add(this.camera);
+        
+        this.ship.position.set( -0.581841*20, (0.151374*20) +20 , -1.466418*20 );
 
+        this.add(this.ship);
     }
 
     createCamera() {
         var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 4000000);
         // También se indica dónde se coloca
-        camera.position.set(this.ship.position.x, this.ship.position.z - 150, this.ship.position.y + 20);
+        camera.position.set(this.ship.position.x-150, this.ship.position.y+20, this.ship.position.z);
         // Y hacia dónde mira
         var look = new THREE.Vector3(this.ship.position.x, this.ship.position.y , this.ship.position.z);
         camera.lookAt(look);
@@ -160,27 +200,27 @@ class Ship extends THREE.Mesh {
     run() {
         this.delta = this.Clock.getDelta();
         this.movement = 50 * this.delta;
-        this.ship.translateY(this.movement);
+        this.ship.translateX(this.movement);
     }
 
     left(){
         this.delta = this.Clock.getDelta();
         this.movement = 50*this.delta;
-        this.ship.rotation.z +=this.delta*2;
+        this.ship.rotation.y +=this.delta*2;
         
     }
     
     right(){
         this.delta = this.Clock.getDelta();
         this.movement = 50*this.delta;
-        this.ship.rotation.z -= this.delta*2;
+        this.ship.rotation.y -= this.delta*2;
         
     }
 
     brake(){
         this.delta = this.Clock.getDelta();
         this.movement = 50*this.delta;
-        this.ship.translateY(-this.movement);
+        this.ship.translateX(-this.movement);
     }
 
     update(){
@@ -189,29 +229,29 @@ class Ship extends THREE.Mesh {
         if(this.keyboard.pressed("up+left")){
             this.delta = this.Clock.getDelta();
             this.movement = 50*this.delta;
-            this.ship.translateY(this.movement*this.Speed);
-            this.ship.rotation.z +=this.delta*1.5;
+            this.ship.translateX(this.movement*this.Speed);
+            this.ship.rotation.y +=this.delta*1.5;
         }
 
         if(this.keyboard.pressed("up+right")){
             this.delta = this.Clock.getDelta();
             this.movement = 50*this.delta;
-            this.ship.translateY(this.movement*this.Speed);
-            this.ship.rotation.z -= this.delta*1.5;
+            this.ship.translateX(this.movement*this.Speed);
+            this.ship.rotation.y -= this.delta*1.5;
         }
 
         if(this.keyboard.pressed("down+left")){
             this.delta = this.Clock.getDelta();
             this.movement = 50*this.delta;
-            this.ship.translateY(-this.movement*this.Speed);
-            this.ship.rotation.z -= this.delta*1.5;
+            this.ship.translateX(-this.movement*this.Speed);
+            this.ship.rotation.y -= this.delta*1.5;
         }
 
         if(this.keyboard.pressed("down+right")){
             this.delta = this.Clock.getDelta();
             this.movement = 50*this.delta;
-            this.ship.translateY(-this.movement);
-            this.ship.rotation.z += this.delta*1.5;
+            this.ship.translateX(-this.movement);
+            this.ship.rotation.y += this.delta*1.5;
         }
 
         //Air Breakers-----
@@ -221,8 +261,8 @@ class Ship extends THREE.Mesh {
 
             this.delta = this.Clock.getDelta();
             this.movement = 50*this.delta;
-            this.ship.translateY(this.movement*this.Speed);
-            this.ship.rotation.z +=this.delta*2;
+            this.ship.translateX(this.movement*this.Speed);
+            this.ship.rotation.y +=this.delta*2;
         }
 
         if(this.keyboard.pressed("up+d")){
@@ -231,8 +271,8 @@ class Ship extends THREE.Mesh {
 
             this.delta = this.Clock.getDelta();
             this.movement = 50*this.delta;
-            this.ship.translateY(this.movement*this.Speed);
-            this.ship.rotation.z -=this.delta*2;
+            this.ship.translateX(this.movement*this.Speed);
+            this.ship.rotation.y -=this.delta*2;
         }
         //------------------
 
@@ -259,7 +299,7 @@ class Ship extends THREE.Mesh {
             else{
                 this.delta = this.Clock.getDelta();
                 this.movement = 50*this.delta;
-                this.ship.translateY(this.movement*this.Speed);
+                this.ship.translateX(this.movement*this.Speed);
             }
         }
 
@@ -273,9 +313,10 @@ class Ship extends THREE.Mesh {
         this.ship.position.copy(posicion);
         var tangente = spline.getTangentAt(t);
         posicion.add(tangente);
+        
         this.ship.lookAt(posicion);
         this.ship.rotateX(-Math.PI/2);
-        this.ship.rotateZ(Math.PI);   
+        this.ship.rotateZ(Math.PI); 
  
     }
 
