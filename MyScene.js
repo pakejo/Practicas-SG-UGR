@@ -20,7 +20,7 @@ class MyScene extends THREE.Scene {
     this.createLights();
 
     // Tendremos una cámara con un control de movimiento con el ratón
-    //this.createCamera(unRenderer);
+    this.createCamera(unRenderer);
 
     // Y unos ejes. Imprescindibles para orientarnos sobre dónde están las cosas
     this.axis = new THREE.AxesHelper(5);
@@ -37,7 +37,10 @@ class MyScene extends THREE.Scene {
   }
 
   createCamera(unRenderer) {
-    // Para crear una cámara le indicamos
+    //-----Quitar el */ para poner la camara de la nave linea 43 y 62
+
+
+   // Para crear una cámara le indicamos
     //   El ángulo del campo de visión en grados sexagesimales
     //   La razón de aspecto ancho/alto
     //   Los planos de recorte cercano y lejano
@@ -57,6 +60,29 @@ class MyScene extends THREE.Scene {
     this.cameraControl.panSpeed = 0.5;
     // Debe orbitar con respecto al punto de mira de la cámara
     //this.cameraControl.target = look;
+
+    //------------------------------------
+
+    /*// Para crear una cámara le indicamos
+    //   El ángulo del campo de visión en grados sexagesimales
+    //   La razón de aspecto ancho/alto
+    //   Los planos de recorte cercano y lejano
+    this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 400000);
+    // También se indica dónde se coloca
+    this.camera.position.set(100, 100, 100);
+    // Y hacia dónde mira
+    var look = new THREE.Vector3(0, 0, 0);
+    this.camera.lookAt(look);
+    this.add(this.camera);
+
+    // Para el control de cámara usamos una clase que ya tiene implementado los movimientos de órbita
+    this.cameraControl = new THREE.TrackballControls(this.camera, unRenderer);
+    // Se configuran las velocidades de los movimientos
+    this.cameraControl.rotateSpeed = 5;
+    this.cameraControl.zoomSpeed = -2;
+    this.cameraControl.panSpeed = 0.5;
+    // Debe orbitar con respecto al punto de mira de la cámara
+    this.cameraControl.target = look;*/
   }
 
   createGUI() {
@@ -102,6 +128,7 @@ class MyScene extends THREE.Scene {
     // En principio se devuelve la única cámara que tenemos
     // Si hubiera varias cámaras, este método decidiría qué cámara devuelve cada vez que es consultado
     return this.ship.getCamera();
+    //return this.camera;
   }
 
   setCameraAspect(ratio) {
