@@ -9,6 +9,18 @@ class Ship extends THREE.Mesh {
         this.Speed = 1.0;
 
         var texture = new THREE.TextureLoader().load('../imgs/ship_texture.jpg');
+
+        //Pruebas de colision
+        this.collidableMesh = [];
+
+        var cubeGeometry = new THREE.BoxGeometry(50, 50, 50);
+        var cubeMaterial3 = new THREE.MeshLambertMaterial({color: 0x00ff00});
+        var cube3 = new THREE.Mesh(cubeGeometry, cubeMaterial3);
+        cube3.position.set(100,0,0);
+        //this.add(cube3);
+        this.collidableMesh.push(cube3);
+        //----------------------------
+
         
         
        
@@ -172,6 +184,8 @@ class Ship extends THREE.Mesh {
     }
 
     update(){
+
+        //this.checkCollision();
         
         //Ship controls--------------------------------
         if(this.keyboard.pressed("up+left")){
@@ -261,9 +275,25 @@ class Ship extends THREE.Mesh {
         this.ship.position.copy(posicion);
         var tangente = spline.getTangentAt(t);
         posicion.add(tangente);
-        
 
+    }
 
+    checkCollision(){
+       
+        var originPoint = this.ship.position.clone();
+        for (var vertexIndex = 0; vertexIndex < this.ship.geometry.vertices.length; vertexIndex++) {
+            
+            var localVertex = this.ship.geometry.vertices[vertexIndex].clone();
+            var globalVertex = localVertex.applyMatrix4(this.ship.matrix);
+            var directionVector = globalVertex.sub(this.ship.position);
+            var ray = new THREE.Raycaster(originPoint, directionVector.clone().normalize());
+            var collisionResults = ray.intersectObjects(this.collidableMesh);
+
+            if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
+                console.log("hit")
+            }
+        }
+    
     }
 
     spline() {
