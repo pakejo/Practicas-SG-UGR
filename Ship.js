@@ -120,7 +120,9 @@ class Ship extends THREE.Mesh {
 
         this.add(this.ship);
 
-
+        // Camara del objeto
+        this.camera = this.createCamera();
+        this.ship.add(this.camera);
 
 
         this.t= 0.0;
