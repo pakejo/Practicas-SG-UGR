@@ -133,13 +133,6 @@ class Ship extends THREE.Mesh {
         this.add(this.ship);
 
 
-<<<<<<< HEAD
-=======
-
-
-        this.t= 0.0;
-
->>>>>>> 63ddbc9fff00f1c1d503d51c5e79c3ed05da7c81
     }
 
     createCamera() {
