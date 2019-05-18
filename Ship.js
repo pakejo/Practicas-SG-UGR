@@ -122,18 +122,24 @@ class Ship extends THREE.Mesh {
         var material = new THREE.MeshPhongMaterial ({map: texture});
         this.ship = bodyMesh.toMesh(material);
 
-        this.ship.rotation.set(-Math.PI/2,0,0);
         this.ship.scale.set(0.1,0.1,0.1);
 
-        //Camara del objeto
-        this.camera = this.createCamera();
-        this.ship.add(this.camera);
+        this.ship.updateMorphTargets();
+        
+        this.ship.rotateX(-Math.PI/2);
+        this.ship.position.set( -0.581841*20, (0.151374*20) +20 , -1.466418*20 );
 
-        this.ship.position.set( -0.581841*20, (0.151374*20) +1 , -1.466418*20 );
 
         this.add(this.ship);
 
 
+<<<<<<< HEAD
+=======
+
+
+        this.t= 0.0;
+
+>>>>>>> 63ddbc9fff00f1c1d503d51c5e79c3ed05da7c81
     }
 
     createCamera() {
@@ -151,12 +157,11 @@ class Ship extends THREE.Mesh {
         return this.camera;
     }
 
-    run(){
+    run() {
+        this.t += 0.01;
         this.delta = this.Clock.getDelta();
-        this.movement = 50*this.delta;
-        this.ship.translateY(this.movement*this.Speed);
-
-        //this.ship.applyMatrix(new THREE.Matrix4().makeTranslation(this.ship.position.x, this.movement*this.Speed, this.ship.position.z) );
+        this.movement = 50 * this.delta;
+        this.ship.translateY(this.t);
     }
 
     left(){
