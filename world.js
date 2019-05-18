@@ -89,6 +89,4 @@ class World extends THREE.Mesh{
         this.add(cylinderMesh);
     
     }
-
-
 }

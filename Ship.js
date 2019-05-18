@@ -8,7 +8,7 @@ class Ship extends THREE.Mesh {
         this.keyboard = new THREEx.KeyboardState();
         this.Speed = 1.0;
 
-        var texture = new THREE.TextureLoader().load('../imgs/ship_texture.jpg');
+        var texture = new THREE.TextureLoader().load('imgs/ship_texture.jpg');
 
         //Pruebas de colision
         this.collidableMesh = [];
@@ -18,7 +18,7 @@ class Ship extends THREE.Mesh {
         var cube3 = new THREE.Mesh(cubeGeometry, cubeMaterial3);
         cube3.position.set(100,0,0);
         //this.add(cube3);
-        this.collidableMesh.push(cube3);
+        //this.collidableMesh.push(cube3);
         //----------------------------
 
         
@@ -136,9 +136,6 @@ class Ship extends THREE.Mesh {
         this.camera = this.createCamera();
         this.ship.add(this.camera);
 
-
-        this.t= 0.0;
-
     }
 
     createCamera() {
@@ -156,11 +153,14 @@ class Ship extends THREE.Mesh {
         return this.camera;
     }
 
+    getShip() {
+        return this.ship;
+    }
+
     run() {
-        this.t += 0.01;
         this.delta = this.Clock.getDelta();
         this.movement = 50 * this.delta;
-        this.ship.translateY(this.t);
+        this.ship.translateY(this.movement);
     }
 
     left(){
@@ -184,8 +184,6 @@ class Ship extends THREE.Mesh {
     }
 
     update(){
-
-        //this.checkCollision();
         
         //Ship controls--------------------------------
         if(this.keyboard.pressed("up+left")){
@@ -275,26 +273,13 @@ class Ship extends THREE.Mesh {
         this.ship.position.copy(posicion);
         var tangente = spline.getTangentAt(t);
         posicion.add(tangente);
-
+        this.ship.lookAt(posicion);
+        this.ship.rotateX(-Math.PI/2);
+        this.ship.rotateZ(Math.PI);   
+ 
     }
 
-    checkCollision(){
-       
-        var originPoint = this.ship.position.clone();
-        for (var vertexIndex = 0; vertexIndex < this.ship.geometry.vertices.length; vertexIndex++) {
-            
-            var localVertex = this.ship.geometry.vertices[vertexIndex].clone();
-            var globalVertex = localVertex.applyMatrix4(this.ship.matrix);
-            var directionVector = globalVertex.sub(this.ship.position);
-            var ray = new THREE.Raycaster(originPoint, directionVector.clone().normalize());
-            var collisionResults = ray.intersectObjects(this.collidableMesh);
 
-            if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
-                console.log("hit")
-            }
-        }
-    
-    }
 
     spline() {
 

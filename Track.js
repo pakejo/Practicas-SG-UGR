@@ -3,6 +3,7 @@ class Track extends THREE.Mesh {
     constructor() {
         super();
 
+        this.modelo;
         var that = this;
 
         var loader = new THREE.OBJLoader2();
@@ -17,9 +18,7 @@ class Track extends THREE.Mesh {
                     }, null, null, null, false);
             });
         
-            this.scale.set(110,110,110);
-
-            
+            this.scale.set(110,110,110);       
     }
 
 }

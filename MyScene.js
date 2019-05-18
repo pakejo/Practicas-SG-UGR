@@ -8,7 +8,7 @@ class MyScene extends THREE.Scene {
   constructor(unRenderer) {
     super();
 
-    this.updateMatrixWorld(true);
+    //this.updateMatrixWorld(true);
 
     // Se añade a la gui los controles para manipular los elementos de esta clase
     this.createGUI();
@@ -34,6 +34,10 @@ class MyScene extends THREE.Scene {
 
     this.world = new World();
     this.add(this.world);
+
+
+    /*this.collidableMesh = [];
+    this.collidableMesh.push(this.track);*/
   }
 
   createCamera(unRenderer) {
@@ -136,6 +140,24 @@ class MyScene extends THREE.Scene {
     this.camera.updateProjectionMatrix();
   }
 
+  /*checkCollision(){
+       
+    var originPoint = this.ship.getShip().position.clone();
+    
+    for (var vertexIndex = 0; vertexIndex < this.ship.getShip().geometry.vertices.length; vertexIndex++)
+    {		
+        var localVertex = this.ship.getShip().geometry.vertices[vertexIndex].clone();
+        var globalVertex = localVertex.applyMatrix4( this.ship.getShip().matrix );
+        var directionVector = globalVertex.sub( this.ship.position );
+        
+        var ray = new THREE.Raycaster( originPoint, directionVector.clone().normalize() );
+        var collisionResults = ray.intersectObjects( this.collidableMesh );
+        //if ( collisionResults.length > 0 && collisionResults[0].distance < directionVector.length() ) 
+            //console.log('HIT');
+    }
+
+  }*/
+
   update() {
     // Se actualizan los elementos de la escena para cada frame
     // Se actualiza la intensidad de la luz con lo que haya indicado el usuario en la gui
@@ -147,5 +169,7 @@ class MyScene extends THREE.Scene {
     // Se actualiza la posición de la cámara según su controlador
     //this.cameraControl.update();
     this.ship.update();
+    //this.checkCollision();
+
   }
 }
