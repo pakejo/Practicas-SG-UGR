@@ -9,20 +9,6 @@ class Ship extends THREE.Mesh {
         this.Speed = 1.0;
 
         var texture = new THREE.TextureLoader().load('imgs/ship_texture.jpg');
-
-        //Pruebas de colision
-        this.collidableMesh = [];
-
-        var cubeGeometry = new THREE.BoxGeometry(50, 50, 50);
-        var cubeMaterial3 = new THREE.MeshLambertMaterial({color: 0x00ff00});
-        var cube3 = new THREE.Mesh(cubeGeometry, cubeMaterial3);
-        cube3.position.set(100,0,0);
-        //this.add(cube3);
-        //this.collidableMesh.push(cube3);
-        //----------------------------
-
-        
-        
        
         //Body, driver and frontal guns-------
         var body = new THREE.CylinderGeometry(0,3,30,3);
@@ -164,8 +150,9 @@ class Ship extends THREE.Mesh {
         var bodyMesh = bodybsp.union(driverbsp).union(gun1bsp).union(gun2bsp).union(wings).union(boosters);
 
 
-        var material = new THREE.MeshPhongMaterial ({map: texture});
+        var material = new THREE.MeshBasicMaterial ({map: texture});
         this.ship = bodyMesh.toMesh();
+        this.ship.material = material;
 
         this.ship.scale.set(0.1,0.1,0.1);
 
@@ -176,6 +163,23 @@ class Ship extends THREE.Mesh {
         this.ship.position.set( -0.581841*20, (0.151374*20) +20 , -1.466418*20 );
 
         this.add(this.ship);
+
+        this.t = 0.0;
+        this.spline = this.spline();
+
+        //Colisiones
+       /*this.colliderSystem  = new THREEx.ColliderSystem();
+        this.colliders = [];
+        this.colliderShip    = THREEx.Collider.createFromObject3d(this.ship);
+        this.colliderCubo    = THREEx.Collider.createFromObject3d(cube3);
+
+        this.colliderShip.addEventListener('contactEnter', function(otherCollider){
+            console.log('HIT');
+        });
+
+        this.colliders.push(this.colliderShip);
+        this.colliders.push(this.colliderCubo);*/
+
     }
 
     createCamera() {
@@ -197,30 +201,34 @@ class Ship extends THREE.Mesh {
         return this.ship;
     }
 
-    run() {
-        this.delta = this.Clock.getDelta();
-        this.movement = 50 * this.delta;
-        this.ship.translateX(this.movement);
+    run() { 
+        var posicion = this.spline.getPointAt(this.t);
+        this.ship.position.copy(posicion);
+        var tangente = this.spline.getTangentAt(this.t);
+        posicion.add(tangente);
+        
+        this.ship.lookAt(posicion);
+        this.t += 0.001;
+        this.ship.rotateY(-Math.PI/2);
+
+        if(this.t >= 1)
+            this.t = 0.0;
+
     }
 
     left(){
-        this.delta = this.Clock.getDelta();
-        this.movement = 50*this.delta;
-        this.ship.rotation.y +=this.delta*2;
-        
+        this.ship.rotation.y += Math.PI/90;
+        this.ship.translateOnAxis(new THREE.Vector3(0,0,1), -0.1);
+        this.ship.rotation.y -= Math.PI/90;
     }
     
     right(){
-        this.delta = this.Clock.getDelta();
-        this.movement = 50*this.delta;
-        this.ship.rotation.y -= this.delta*2;
-        
+        this.ship.rotation.y += Math.PI/90;
+        this.ship.translateOnAxis(new THREE.Vector3(0,0,1), +0.1);
+        this.ship.rotation.y -= Math.PI/90;
     }
 
     brake(){
-        this.delta = this.Clock.getDelta();
-        this.movement = 50*this.delta;
-        this.ship.translateX(-this.movement);
     }
 
     update(){
@@ -302,24 +310,12 @@ class Ship extends THREE.Mesh {
                 this.ship.translateX(this.movement*this.Speed);
             }
         }
-
-        // Camino por el spline
-        var time = Date.now();
-        var looptime = 20000;
-        var t = (time % looptime) / looptime;
-        var spline = this.spline();
-
-        var posicion = spline.getPointAt(t);
-        this.ship.position.copy(posicion);
-        var tangente = spline.getTangentAt(t);
-        posicion.add(tangente);
         
-        this.ship.lookAt(posicion);
-        this.ship.rotateX(-Math.PI/2);
-        this.ship.rotateZ(Math.PI); 
+       /* this.colliderSystem.computeAndNotify(this.colliders);
+        this.colliders[0].update();
+        this.colliders[1].update();*/
  
     }
-
 
 
     spline() {

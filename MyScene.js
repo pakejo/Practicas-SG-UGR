@@ -35,9 +35,6 @@ class MyScene extends THREE.Scene {
     this.world = new World();
     this.add(this.world);
 
-
-    /*this.collidableMesh = [];
-    this.collidableMesh.push(this.track);*/
   }
 
   createCamera(unRenderer) {
@@ -119,13 +116,9 @@ class MyScene extends THREE.Scene {
     // La añadimos a la escena
     this.add(ambientLight);
 
-    // Se crea una luz focal que va a ser la luz principal de la escena
-    // La luz focal, además tiene una posición, y un punto de mira
-    // Si no se le da punto de mira, apuntará al (0,0,0) en coordenadas del mundo
-    // En este caso se declara como   this.atributo   para que sea un atributo accesible desde otros métodos.
-    this.spotLight = new THREE.SpotLight(0xffffff, this.guiControls.lightIntensity);
-    this.spotLight.position.set(60, 60, 40);
-    this.add(this.spotLight);
+    var light = new THREE.PointLight( 0xff0000, 1, 100 ); 
+    light.position.set( 500, 500, 500 ); 
+    this.add( light );
   }
 
   getCamera() {
@@ -140,36 +133,14 @@ class MyScene extends THREE.Scene {
     this.camera.updateProjectionMatrix();
   }
 
-  /*checkCollision(){
-       
-    var originPoint = this.ship.getShip().position.clone();
-    
-    for (var vertexIndex = 0; vertexIndex < this.ship.getShip().geometry.vertices.length; vertexIndex++)
-    {		
-        var localVertex = this.ship.getShip().geometry.vertices[vertexIndex].clone();
-        var globalVertex = localVertex.applyMatrix4( this.ship.getShip().matrix );
-        var directionVector = globalVertex.sub( this.ship.position );
-        
-        var ray = new THREE.Raycaster( originPoint, directionVector.clone().normalize() );
-        var collisionResults = ray.intersectObjects( this.collidableMesh );
-        //if ( collisionResults.length > 0 && collisionResults[0].distance < directionVector.length() ) 
-            //console.log('HIT');
-    }
-
-  }*/
 
   update() {
-    // Se actualizan los elementos de la escena para cada frame
-    // Se actualiza la intensidad de la luz con lo que haya indicado el usuario en la gui
-    this.spotLight.intensity = this.guiControls.lightIntensity;
-
     // Se muestran o no los ejes según lo que idique la GUI
     this.axis.visible = this.guiControls.axisOnOff;
 
     // Se actualiza la posición de la cámara según su controlador
     this.cameraControl.update();
     this.ship.update();
-    //this.checkCollision();
 
   }
 }
