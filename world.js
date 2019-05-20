@@ -49,6 +49,72 @@ class World extends THREE.Mesh{
         var hole1bsp = new ThreeBSP(hole1);
         var skyscraper1bsp = new ThreeBSP(skyscraper1);
         var building1 = skyscraper1bsp.subtract(hole1bsp);*/
+
+        //Cross
+        this.cross1 = new THREE.Mesh();
+        this.cross1.geometry = new THREE.BoxGeometry(3,20,3);
+        this.cross1.material = new THREE.MeshNormalMaterial();
+
+        this.cross1.rotateX(Math.PI/4);
+        this.cross1.position.set(0,30,-188);
+
+        this.cross2 = new THREE.Mesh();
+        this.cross2.geometry = new THREE.BoxGeometry(3,20,3);
+        this.cross2.material = new THREE.MeshNormalMaterial();
+
+        this.cross2.rotateX(-Math.PI/4);
+        this.cross2.position.set(0,30,-188);
+
+        this.crossRotation = 0.0;
+        //------------------------------
+
+        //Clock
+        this.clock1 = new THREE.Mesh();
+        this.clock1.geometry = new THREE.BoxGeometry(20,8,3);
+        this.clock1.material = new THREE.MeshNormalMaterial();
+
+        this.clock1.rotateY(Math.PI/4);
+        this.clock1.position.set(-200,20,-97);
+
+        this.clock2 = new THREE.Mesh();
+        this.clock2.geometry = new THREE.BoxGeometry(20,8,3);
+        this.clock2.material = new THREE.MeshNormalMaterial();
+
+        this.clock2.rotateY(-Math.PI/4);
+        this.clock2.position.set(-200,20,-97);
+
+        this.clockRotation = 0.0;
+        //-------------------------------------
+
+        //Zig Zag
+        this.zigzag1 = new THREE.Mesh();
+        this.zigzag1.geometry = new THREE.BoxGeometry(0.5,8,20);
+        this.zigzag1.material = new THREE.MeshNormalMaterial();
+        this.zigzag1.position.set(0,25,-50);
+
+        this.zigzag1.rotateY(Math.PI/4);
+
+        this.zigzag2 = new THREE.Mesh();
+        this.zigzag2.geometry = new THREE.BoxGeometry(0.5,8,20);
+        this.zigzag2.material = new THREE.MeshNormalMaterial();
+        this.zigzag2.position.set(-20,25,-5);
+
+        this.zigzag2.rotateY(Math.PI/4);
+
+        this.zigzag3 = new THREE.Mesh();
+        this.zigzag3.geometry = new THREE.BoxGeometry(0.5,8,20);
+        this.zigzag3.material = new THREE.MeshNormalMaterial();
+        this.zigzag3.position.set(-60,25,10);
+
+        this.zigzag3.rotateY(Math.PI/4);
+
+        this.zigzag4 = new THREE.Mesh();
+        this.zigzag4.geometry = new THREE.BoxGeometry(0.5,8,20);
+        this.zigzag4.material = new THREE.MeshNormalMaterial();
+        this.zigzag4.position.set(50,25,-65);
+
+        this.zigzag4.rotateY(Math.PI/4);
+
         
 
 
@@ -87,6 +153,14 @@ class World extends THREE.Mesh{
         this.add(this.building1Mesh);
         //this.add(torus);
         this.add(cylinderMesh);
+        this.add(this.cross2);
+        this.add(this.cross1);
+        this.add(this.clock1);
+        this.add(this.clock2);
+        this.add(this.zigzag1);
+        this.add(this.zigzag2);
+        this.add(this.zigzag3);
+        this.add(this.zigzag4);
 
         // Sonidos
 
@@ -106,5 +180,15 @@ class World extends THREE.Mesh{
             sound.play();
         });
     
+    }
+
+    update(){
+        this.crossRotation += 0.06;
+        this.clockRotation += 0.04;
+        this.cross1.rotation.set(this.crossRotation,0,0);
+        this.cross2.rotation.set(-this.crossRotation,0,0);
+
+        this.clock1.rotation.set(0,this.clockRotation,0);
+        this.clock2.rotation.set(0,this.clockRotation,0);
     }
 }

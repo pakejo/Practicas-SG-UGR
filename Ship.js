@@ -209,7 +209,7 @@ class Ship extends THREE.Mesh {
         posicion.add(tangente);
         
         this.ship.lookAt(posicion);
-        this.t += 0.0005;
+        this.t += 0.001;
         this.ship.rotateY(-Math.PI/2);
 
         if(this.t >= 1)
@@ -219,11 +219,13 @@ class Ship extends THREE.Mesh {
     }
 
     left(){
-        this.movimientoLateral -= 0.3;
+        if(this.movimientoLateral >=-8)
+            this.movimientoLateral -= 0.5;
     }
     
     right(){
-        this.movimientoLateral +=0.3;
+        if(this.movimientoLateral <=8)
+        this.movimientoLateral +=0.5;
     }
 
     brake(){
@@ -239,14 +241,6 @@ class Ship extends THREE.Mesh {
         else if(this.keyboard.pressed("up+right")){
             this.run();
             this.right();
-        }
-        else if(this.keyboard.pressed("down+left")){
-            this.brake();
-            this.right();
-        }
-        else if(this.keyboard.pressed("down+right")){
-            this.brake();
-            this.left();
         }
         else if(this.keyboard.pressed("up"))
             this.run();
