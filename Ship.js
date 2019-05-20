@@ -1,6 +1,6 @@
 class Ship extends THREE.Mesh {
 
-    constructor(){
+    constructor(spline){
         super();
         this.Clock = new THREE.Clock();
         this.delta = this.Clock.getDelta();
@@ -165,7 +165,7 @@ class Ship extends THREE.Mesh {
         this.add(this.ship);
 
         this.t = 0.0;
-        this.spline = this.spline();
+        this.spline = spline;
 
         //Colisiones
        /*this.colliderSystem  = new THREEx.ColliderSystem();
@@ -220,10 +220,24 @@ class Ship extends THREE.Mesh {
 
     left(){
         this.movimientoLateral -= 0.3;
+
+        if(this.movimientoLateral <= -9)
+            this.movimientoLateral = -9.0;
     }
     
     right(){
         this.movimientoLateral +=0.3;
+
+        if(this.movimientoLateral >= 9)
+            this.movimientoLateral = 9.0;
+    }
+
+    leftOnly() {
+        this.ship.translateZ(-0.3);
+    }
+
+    rightOnly() {
+        this.ship.translateZ(0.3);
     }
 
     brake(){
@@ -250,20 +264,13 @@ class Ship extends THREE.Mesh {
         }
         else if(this.keyboard.pressed("up"))
             this.run();
+        else if(this.keyboard.pressed("left"))
+            this.leftOnly();
+        else if(this.keyboard.pressed("right"))
+            this.rightOnly();
 
-
-        /*if(this.keyboard.pressed("right"))
-        this.right();
-
-        if(this.keyboard.pressed("left"))
-        this.left();
-
-        if(this.keyboard.pressed("up"))
-            this.run();
-
-        if(this.keyboard.pressed("down"))
-            this.brake();
-        */
+        
+        // Control de colisiones
 
        /* this.colliderSystem.computeAndNotify(this.colliders);
         this.colliders[0].update();
