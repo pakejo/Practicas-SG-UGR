@@ -9,7 +9,7 @@ class World extends THREE.Mesh{
         //Tunel
         var skyscraper1 = new THREE.Mesh();
             skyscraper1.geometry = new THREE.CubeGeometry(140,150,60);
-            skyscraper1.material = new THREE.MeshPhongMaterial ({map: buildingTexture});
+            skyscraper1.material = new THREE.MeshBasicMaterial ({map: buildingTexture});
 
         var hole1 = new THREE.CubeGeometry(140,20,40);
         var hole1bsp = new ThreeBSP(hole1);
@@ -87,6 +87,24 @@ class World extends THREE.Mesh{
         this.add(this.building1Mesh);
         //this.add(torus);
         this.add(cylinderMesh);
+
+        // Sonidos
+
+        // create an AudioListener and add it to the camera
+        var listener = new THREE.AudioListener();
+        this.add(listener);
+
+        // create a global audio source
+        var sound = new THREE.Audio( listener );
+
+        // load a sound and set it as the Audio object's buffer
+        var audioLoader = new THREE.AudioLoader();
+        audioLoader.load( 'sounds/fondo.mp3', function( buffer ) {
+            sound.setBuffer( buffer );
+            sound.setLoop( true );
+            sound.setVolume( 0.3 );
+            sound.play();
+        });
     
     }
 }

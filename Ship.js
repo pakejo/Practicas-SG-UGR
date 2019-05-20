@@ -180,6 +180,7 @@ class Ship extends THREE.Mesh {
         this.colliders.push(this.colliderShip);
         this.colliders.push(this.colliderCubo);*/
 
+        this.movimientoLateral = 0.0;
     }
 
     createCamera() {
@@ -208,24 +209,21 @@ class Ship extends THREE.Mesh {
         posicion.add(tangente);
         
         this.ship.lookAt(posicion);
-        this.t += 0.001;
+        this.t += 0.0005;
         this.ship.rotateY(-Math.PI/2);
 
         if(this.t >= 1)
             this.t = 0.0;
 
+        this.ship.translateZ(this.movimientoLateral);
     }
 
     left(){
-        this.ship.rotation.y += Math.PI/90;
-        this.ship.translateOnAxis(new THREE.Vector3(0,0,1), -0.1);
-        this.ship.rotation.y -= Math.PI/90;
+        this.movimientoLateral -= 0.3;
     }
     
     right(){
-        this.ship.rotation.y += Math.PI/90;
-        this.ship.translateOnAxis(new THREE.Vector3(0,0,1), +0.1);
-        this.ship.rotation.y -= Math.PI/90;
+        this.movimientoLateral +=0.3;
     }
 
     brake(){
@@ -233,84 +231,40 @@ class Ship extends THREE.Mesh {
 
     update(){
         
-        //Ship controls--------------------------------
+        //Ship controls-------------------------------
         if(this.keyboard.pressed("up+left")){
-            this.delta = this.Clock.getDelta();
-            this.movement = 50*this.delta;
-            this.ship.translateX(this.movement*this.Speed);
-            this.ship.rotation.y +=this.delta*1.5;
+            this.run();
+            this.left();
         }
-
-        if(this.keyboard.pressed("up+right")){
-            this.delta = this.Clock.getDelta();
-            this.movement = 50*this.delta;
-            this.ship.translateX(this.movement*this.Speed);
-            this.ship.rotation.y -= this.delta*1.5;
+        else if(this.keyboard.pressed("up+right")){
+            this.run();
+            this.right();
         }
-
-        if(this.keyboard.pressed("down+left")){
-            this.delta = this.Clock.getDelta();
-            this.movement = 50*this.delta;
-            this.ship.translateX(-this.movement*this.Speed);
-            this.ship.rotation.y -= this.delta*1.5;
+        else if(this.keyboard.pressed("down+left")){
+            this.brake();
+            this.right();
         }
-
-        if(this.keyboard.pressed("down+right")){
-            this.delta = this.Clock.getDelta();
-            this.movement = 50*this.delta;
-            this.ship.translateX(-this.movement);
-            this.ship.rotation.y += this.delta*1.5;
+        else if(this.keyboard.pressed("down+right")){
+            this.brake();
+            this.left();
         }
-
-        //Air Breakers-----
-        if(this.keyboard.pressed("up+a")){
-            if(this.Speed > 0.0)
-                this.Speed -= 0.1;
-
-            this.delta = this.Clock.getDelta();
-            this.movement = 50*this.delta;
-            this.ship.translateX(this.movement*this.Speed);
-            this.ship.rotation.y +=this.delta*2;
-        }
-
-        if(this.keyboard.pressed("up+d")){
-            if(this.Speed > 0.0)
-                this.Speed -= 0.1;
-
-            this.delta = this.Clock.getDelta();
-            this.movement = 50*this.delta;
-            this.ship.translateX(this.movement*this.Speed);
-            this.ship.rotation.y -=this.delta*2;
-        }
-        //------------------
+        else if(this.keyboard.pressed("up"))
+            this.run();
 
 
-        if(this.keyboard.pressed("right"))
+        /*if(this.keyboard.pressed("right"))
         this.right();
 
         if(this.keyboard.pressed("left"))
         this.left();
 
-        if(this.keyboard.pressed("up")){
-            if(this.Speed <= 10.0)
-                this.Speed +=0.02;
-
+        if(this.keyboard.pressed("up"))
             this.run();
-        }
 
         if(this.keyboard.pressed("down"))
-        this.brake();
+            this.brake();
+        */
 
-        if(!this.keyboard.pressed("up")){
-            if(this.Speed > 0.0)
-                this.Speed -= 0.01;
-            else{
-                this.delta = this.Clock.getDelta();
-                this.movement = 50*this.delta;
-                this.ship.translateX(this.movement*this.Speed);
-            }
-        }
-        
        /* this.colliderSystem.computeAndNotify(this.colliders);
         this.colliders[0].update();
         this.colliders[1].update();*/
