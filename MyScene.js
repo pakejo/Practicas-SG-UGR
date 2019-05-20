@@ -67,7 +67,7 @@ class MyScene extends THREE.Scene {
 
     //------------------------------------
 
-   /* // Para crear una cámara le indicamos
+   /*// Para crear una cámara le indicamos
     //   El ángulo del campo de visión en grados sexagesimales
     //   La razón de aspecto ancho/alto
     //   Los planos de recorte cercano y lejano
@@ -143,6 +143,7 @@ class MyScene extends THREE.Scene {
 
     // Se actualiza la posición de la cámara según su controlador
     this.cameraControl.update();
+    this.world.update();
     this.ship.update();
 
   }
