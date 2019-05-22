@@ -2,11 +2,7 @@ class Ship extends THREE.Mesh {
 
     constructor(spline){
         super();
-        this.Clock = new THREE.Clock();
-        this.delta = this.Clock.getDelta();
-        this.movement = 50*this.delta;
         this.keyboard = new THREEx.KeyboardState();
-        this.Speed = 1.0;
 
         var texture = new THREE.TextureLoader().load('imgs/ship_texture.jpg');
        
@@ -181,6 +177,13 @@ class Ship extends THREE.Mesh {
         this.colliders.push(this.colliderCubo);*/
 
         this.movimientoLateral = 0.0;
+
+        var posicion = this.spline.getPointAt(0.0);
+        this.ship.position.copy(posicion);
+        var tangente = this.spline.getTangentAt(0.0);
+        posicion.add(tangente);
+        this.ship.lookAt(posicion);
+        this.ship.rotateY(-Math.PI/2);
     }
 
     createCamera() {
@@ -219,14 +222,14 @@ class Ship extends THREE.Mesh {
     }
 
     left(){
-        this.movimientoLateral -= 0.3;
+        this.movimientoLateral -= 0.5;
 
         if(this.movimientoLateral <= -9)
             this.movimientoLateral = -9.0;
     }
     
     right(){
-        this.movimientoLateral +=0.3;
+        this.movimientoLateral +=0.5;
 
         if(this.movimientoLateral >= 9)
             this.movimientoLateral = 9.0;
@@ -242,10 +245,6 @@ class Ship extends THREE.Mesh {
         this.movimientoLateral += 0.3;
     }
     
-    /*right(){
-        if(this.movimientoLateral <=8)
-        this.movimientoLateral +=0.5;
-    }*/
 
     brake(){
     }
