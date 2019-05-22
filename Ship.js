@@ -3,6 +3,7 @@ class Ship extends THREE.Mesh {
     constructor(spline){
         super();
         this.keyboard = new THREEx.KeyboardState();
+        this.UI = new GUI();
 
         var texture = new THREE.TextureLoader().load('imgs/ship_texture.jpg');
        
@@ -178,12 +179,17 @@ class Ship extends THREE.Mesh {
 
         this.movimientoLateral = 0.0;
 
+        // Posicion iniical de la nave al comenzar el juego
         var posicion = this.spline.getPointAt(0.0);
         this.ship.position.copy(posicion);
         var tangente = this.spline.getTangentAt(0.0);
         posicion.add(tangente);
         this.ship.lookAt(posicion);
         this.ship.rotateY(-Math.PI/2);
+
+        // Inicio de la carrera
+        this.cronometroInjiciado = false;
+        this.UI.cronometroStart();
     }
 
     createCamera() {
@@ -219,6 +225,9 @@ class Ship extends THREE.Mesh {
             this.t = 0.0;
 
         this.ship.translateZ(this.movimientoLateral);
+
+        if(!this.cronometroInjiciado)
+            this.UI.cronometroStart();
     }
 
     left(){
@@ -238,6 +247,7 @@ class Ship extends THREE.Mesh {
     leftOnly() {
         this.ship.translateZ(-0.3);
         this.movimientoLateral -= 0.3;
+        this.UI.winLife();
     }
 
     rightOnly() {
@@ -273,6 +283,10 @@ class Ship extends THREE.Mesh {
        /* this.colliderSystem.computeAndNotify(this.colliders);
         this.colliders[0].update();
         this.colliders[1].update();*/
+
+
+        // Actualizacion del cronometro y vidas
+        this.UI.update();
  
     }
 

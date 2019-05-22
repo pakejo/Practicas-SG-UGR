@@ -1,0 +1,25 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+#cronometro{
+	margin: 10px auto;
+	width: 540px;
+    height: 115px;
+    z-index: 10000;
+    position: fixed;
+    left: 40%;
+    color: aquamarine;
+}
+.reloj{
+	float: left;
+	font-size: 80px;
+	font-family: Courier,sans-serif;
+    z-index: 10000;
+}
+
+#vidas{
+    position: fixed;
+    right: 0%;
+}

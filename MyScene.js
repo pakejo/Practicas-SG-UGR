@@ -11,7 +11,7 @@ class MyScene extends THREE.Scene {
     //this.updateMatrixWorld(true);
 
     // Se añade a la gui los controles para manipular los elementos de esta clase
-    this.createGUI();
+    //this.createGUI();
 
     // Construimos los distinos elementos que tendremos en la escena
 
@@ -139,7 +139,7 @@ class MyScene extends THREE.Scene {
 
   update() {
     // Se muestran o no los ejes según lo que idique la GUI
-    this.axis.visible = this.guiControls.axisOnOff;
+    //this.axis.visible = this.guiControls.axisOnOff;
 
     // Se actualiza la posición de la cámara según su controlador
     this.cameraControl.update();
