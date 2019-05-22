@@ -1,10 +1,19 @@
 class World extends THREE.Mesh{
     constructor(){
         super();
-
+        this.counter = 0;
         this.geometry = new THREE.CubeGeometry(10000,10000,10000);
 
         var buildingTexture = new THREE.TextureLoader().load('imgs/textura_edificio2.jpg');
+
+        var extrudeSettings = {
+            steps: 1,
+            depth: 0.1,
+            bevelEnabled: true,
+            bevelThickness: 0.5,
+            bevelSize: 0,
+            bevelSegments: 50
+        };
 
         //Tunel
         var skyscraper1 = new THREE.Mesh();
@@ -74,14 +83,7 @@ class World extends THREE.Mesh{
         this.clock1.material = new THREE.MeshNormalMaterial();
 
         this.clock1.rotateY(Math.PI/4);
-        this.clock1.position.set(-200,20,-97);
-
-        this.clock2 = new THREE.Mesh();
-        this.clock2.geometry = new THREE.BoxGeometry(20,8,3);
-        this.clock2.material = new THREE.MeshNormalMaterial();
-
-        this.clock2.rotateY(-Math.PI/4);
-        this.clock2.position.set(-200,20,-97);
+        this.clock1.position.set(-200,22,-97);
 
         this.clockRotation = 0.0;
         //-------------------------------------
@@ -115,7 +117,27 @@ class World extends THREE.Mesh{
 
         this.zigzag4.rotateY(Math.PI/4);
 
+        //Lifes------------------------
+        var heartShape = new THREE.Shape();
+
+        heartShape.moveTo(0.0,0.0,0.0);
+        heartShape.bezierCurveTo(8.0, 4.0, 4.0, 8.0, 0.0, 6.0);
+        heartShape.bezierCurveTo(-4.0, 8.0, -8.0, 4.0, 0.0, 0.0);
+
+        var geometry = new THREE.ExtrudeGeometry(heartShape, extrudeSettings);
+        var heart_texture = new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('imgs/heart_texture2.jpg')});
+        this.LifeRotation = 0.0;
+        this.Life1 = new THREE.Mesh(geometry, heart_texture);
+        this.Life1.rotateY(this.LifeRotation);
+        this.Life1.scale.set(0.3,0.3,0.3);
+        this.Life1.position.set(-180,19,-115);
+
+        this.Life2 = new THREE.Mesh(geometry, heart_texture);
+        this.Life2.rotateY(this.LifeRotation);
+        this.Life2.scale.set(0.3,0.3,0.3);
+        this.Life2.position.set(-49,22, 0);
         
+        //-----------------------------------
 
 
 
@@ -150,19 +172,20 @@ class World extends THREE.Mesh{
         this.building1Mesh.position.set(0,25,-27);
 
         this.add(this.world);
-        this.add(this.building1Mesh);
+        //this.add(this.building1Mesh);
         //this.add(torus);
         this.add(cylinderMesh);
         this.add(this.cross2);
         this.add(this.cross1);
         this.add(this.clock1);
-        this.add(this.clock2);
         this.add(this.zigzag1);
         this.add(this.zigzag2);
         this.add(this.zigzag3);
         this.add(this.zigzag4);
+        this.add(this.Life1);
+        this.add(this.Life2);
 
-        // Sonidos
+        // Sonidos------------------------
 
         // create an AudioListener and add it to the camera
         var listener = new THREE.AudioListener();
@@ -179,16 +202,73 @@ class World extends THREE.Mesh{
             sound.setVolume( 0.3 );
             sound.play();
         });
+        //--------------------------------
+
+        //Lights--------
+        //var lightHeart1 = new THREE.DirectionalLight(0xff0000,30,7,2);
+        var lightHeart1 = new THREE.PointLight(0xff0000,30,7,2);
+        lightHeart1.position.set(-180,19,-115);
+        this.add(lightHeart1);
+    
+        var lightHeart2 = new THREE.PointLight(0xff0000,30,7,2);
+        lightHeart2.position.set(-49,23, 0);
+        this.add(lightHeart2);
+
+
+        //this.tunelLight1 = new THREE.DirectionalLight(0xff0000,50,20,2);
+        this.tunelLight1 = new THREE.PointLight(0xff0000,50,20,2);
+        this.tunelLight1.position.set(-20,27,-5);
+        this.add(this.tunelLight1);
+
+        this.tunelLight2 = new THREE.PointLight(0x0E2FB8,50,20,2);
+        this.tunelLight2.position.set(0,27,-50);
+        this.add(this.tunelLight2);
+    
+        //----------------
     
     }
 
     update(){
         this.crossRotation += 0.06;
         this.clockRotation += 0.04;
+        this.LifeRotation += 0.02;
         this.cross1.rotation.set(this.crossRotation,0,0);
         this.cross2.rotation.set(-this.crossRotation,0,0);
 
-        this.clock1.rotation.set(0,this.clockRotation,0);
-        this.clock2.rotation.set(0,this.clockRotation,0);
+        //Change clock rotation
+        if(this.counter >= 500 && this.counter <=1000){
+            this.clock1.rotation.set(0,this.clockRotation,0);
+            if(this.counter == 1000)
+                this.counter = 0;
+        }else{
+            this.clock1.rotation.set(0,-this.clockRotation,0);
+            //this.clock2.rotation.set(0,this.clockRotation,0);
+        }
+
+        if(this.counter >= 100 && this.counter <=300){
+            this.tunelLight1.color.setHex(0xC4DA0D);
+        }else if(this.counter >= 301 && this.counter <=500){
+            this.tunelLight1.color.setHex(0x0E2FB8);
+            this.tunelLight2.color.setHex(0xC4DA0D);
+        }else if(this.counter >= 501 && this.counter <=700){
+            this.tunelLight1.color.setHex(0x720EB8);
+            this.tunelLight2.color.setHex(0x25B80E);
+        }else if(this.counter >= 701 && this.counter <=1000){
+                this.tunelLight1.color.setHex(0x25B80E);
+                this.tunelLight2.color.setHex(0x720EB8);
+        }else{
+            this.tunelLight1.color.setHex(0xff0000);
+            this.tunelLight2.color.setHex(0x0E2FB8);
+        }
+
+        
+        
+
+        this.counter++;
+
+
+        this.Life1.rotation.set(0,this.LifeRotation,0);
+        this.Life2.rotation.set(0,this.LifeRotation,0);
     }
+    
 }
