@@ -64,12 +64,11 @@ $(function () {
   // Cada vez que el usuario cambie el tamaño de la ventana se llama a la función que actualiza la cámara y el renderer
   window.addEventListener ("resize", onWindowResize);
   
-  // Se crea una interfaz gráfica de usuario vacia
-  //gui = new dat.GUI();
-  
   // Se crea la escena. La escena es una instancia de nuestra propia clase encargada de crear y gestionar todos los elementos que intervienen en la escena.
   scene = new MyScene (renderer.domElement);
 
   // Finalmente, realizamos el primer renderizado.
   render();
+
+  scene.start();
 });

@@ -256,8 +256,12 @@ class Ship extends THREE.Mesh {
         this.movimientoLateral += 0.3;
     }
     
+    lostLife() {
+        this.UI.lostLife();
+    }
 
-    brake(){
+    winLife() {
+        this.UI.winLife();
     }
 
     update(){
@@ -277,13 +281,6 @@ class Ship extends THREE.Mesh {
             this.leftOnly();
         else if(this.keyboard.pressed("right"))
             this.rightOnly();
-
-        
-        // Control de colisiones
-
-       /* this.colliderSystem.computeAndNotify(this.colliders);
-        this.colliders[0].update();
-        this.colliders[1].update();*/
 
 
         // Actualizacion del cronometro y vidas

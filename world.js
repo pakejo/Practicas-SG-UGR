@@ -269,6 +269,23 @@ class World extends THREE.Mesh{
     
     }
 
+    getObstacles() {
+        var lista = [];
+
+        lista.push(this.Life1);
+        lista.push(this.Life2);
+        lista.push(this.cross1);
+        lista.push(this.cross2);
+        lista.push(this.clock1);
+        lista.push(this.zigzag1);
+        lista.push(this.zigzag2);
+        lista.push(this.zigzag3);
+        lista.push(this.zigzag3);
+        lista.push(this.zigzag4);
+        
+        return lista;
+    }
+
     update(){
         this.crossRotation += 0.08;
         this.clockRotation += 0.04;
