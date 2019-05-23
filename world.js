@@ -2,6 +2,8 @@ class World extends THREE.Mesh{
     constructor(){
         super();
         this.counter = 0;
+        this.counter2 = 0;
+        this.SunOfDeathRotation = 0.0;
         this.geometry = new THREE.CubeGeometry(10000,10000,10000);
 
         var buildingTexture = new THREE.TextureLoader().load('imgs/textura_edificio2.jpg');
@@ -61,18 +63,11 @@ class World extends THREE.Mesh{
 
         //Cross
         this.cross1 = new THREE.Mesh();
-        this.cross1.geometry = new THREE.BoxGeometry(3,20,3);
-        this.cross1.material = new THREE.MeshNormalMaterial();
+        this.cross1.geometry = new THREE.BoxGeometry(3,40,3);
+        this.cross1.material = new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('imgs/lightning_texture.jpg')});
 
         this.cross1.rotateX(Math.PI/4);
         this.cross1.position.set(0,30,-188);
-
-        this.cross2 = new THREE.Mesh();
-        this.cross2.geometry = new THREE.BoxGeometry(3,20,3);
-        this.cross2.material = new THREE.MeshNormalMaterial();
-
-        this.cross2.rotateX(-Math.PI/4);
-        this.cross2.position.set(0,30,-188);
 
         this.crossRotation = 0.0;
         //------------------------------
@@ -80,7 +75,7 @@ class World extends THREE.Mesh{
         //Clock
         this.clock1 = new THREE.Mesh();
         this.clock1.geometry = new THREE.BoxGeometry(20,8,3);
-        this.clock1.material = new THREE.MeshNormalMaterial();
+        this.clock1.material = new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('imgs/lava_texture.jpg')});
 
         this.clock1.rotateY(Math.PI/4);
         this.clock1.position.set(-200,22,-97);
@@ -139,6 +134,51 @@ class World extends THREE.Mesh{
         
         //-----------------------------------
 
+        //Goal-------------------------------
+        this.goal = new THREE.Mesh();
+        this.goal.geometry = new THREE.BoxGeometry(0.5,8,20);
+        this.goal.material = new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('imgs/goal_texture.jpg')});
+        this.goal.rotateY(Math.PI/8);
+        this.goal.position.set(-200,35,-243);
+        //----------------------------------
+
+        //Trol Sphere-------------------
+        this.sphere = new THREE.Mesh();
+        this.sphere.material = new THREE.MeshBasicMaterial({ color: 0xFD0101 });
+        this.sphere.geometry = new THREE.SphereGeometry(10, 30);
+
+        this.spherePart1 = new THREE.Mesh();
+        this.spherePart1.material = new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('imgs/trol_texture.jpg')});
+        this.spherePart1.geometry = new THREE.BoxGeometry(80,10,3);
+        this.spherePart1.position.set(-70,0,0);
+
+        this.spherePart2 = new THREE.Mesh();
+        this.spherePart2.material = new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('imgs/trol_texture.jpg')});
+        this.spherePart2.geometry = new THREE.BoxGeometry(80,10,3);
+        this.spherePart2.position.set(70,0,0);
+
+        this.spherePart3 = new THREE.Mesh();
+        this.spherePart3.material = new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('imgs/trol_texture.jpg')});
+        this.spherePart3.geometry = new THREE.BoxGeometry(3,10,80);
+        this.spherePart3.position.set(0,0,-70);
+
+        this.spherePart4 = new THREE.Mesh();
+        this.spherePart4.material = new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('imgs/trol_texture.jpg')});
+        this.spherePart4.geometry = new THREE.BoxGeometry(3,10,80);
+        this.spherePart4.position.set(0,0,70);
+
+        this.SunOfDeath = new THREE.Mesh();
+
+        this.SunOfDeath.add(this.sphere);
+        this.SunOfDeath.add(this.spherePart1);
+        this.SunOfDeath.add(this.spherePart2);
+        this.SunOfDeath.add(this.spherePart3);
+        this.SunOfDeath.add(this.spherePart4);
+
+        
+        this.SunOfDeath.position.set(-60,25,168);
+
+
 
 
         this.texture = 
@@ -173,9 +213,8 @@ class World extends THREE.Mesh{
 
         this.add(this.world);
         this.add(this.building1Mesh);
-        //this.add(torus);
+        
         this.add(cylinderMesh);
-        this.add(this.cross2);
         this.add(this.cross1);
         this.add(this.clock1);
         this.add(this.zigzag1);
@@ -184,6 +223,8 @@ class World extends THREE.Mesh{
         this.add(this.zigzag4);
         this.add(this.Life1);
         this.add(this.Life2);
+        this.add(this.goal);
+        this.add(this.SunOfDeath);
 
         // Sonidos------------------------
 
@@ -229,21 +270,43 @@ class World extends THREE.Mesh{
     }
 
     update(){
-        this.crossRotation += 0.06;
+        this.crossRotation += 0.08;
         this.clockRotation += 0.04;
         this.LifeRotation += 0.02;
+        this.SunOfDeathRotation +=0.03;
+
+        this.SunOfDeath.rotation.set(0,-this.SunOfDeathRotation,0);
+
         this.cross1.rotation.set(this.crossRotation,0,0);
-        this.cross2.rotation.set(-this.crossRotation,0,0);
+ 
 
         //Change clock rotation
-        if(this.counter >= 500 && this.counter <=1000){
+        if(this.counter >= 200 && this.counter <=400){
             this.clock1.rotation.set(0,this.clockRotation,0);
-            if(this.counter == 1000)
+            if(this.counter == 400)
                 this.counter = 0;
         }else{
             this.clock1.rotation.set(0,-this.clockRotation,0);
-            //this.clock2.rotation.set(0,this.clockRotation,0);
+
         }
+
+        if(this.counter2 >= 50 && this.counter2 <=100){
+            this.zigzag1.rotation.set(0,-Math.PI/4,0);
+            this.zigzag3.rotation.set(0,-Math.PI/4,0);
+            this.zigzag2.rotation.set(0,Math.PI/4,0);
+            this.zigzag4.rotation.set(0,Math.PI/4,0);
+
+            if(this.counter2 == 100)
+                this.counter2 = 0;
+        }else{
+
+            this.zigzag2.rotation.set(0,-Math.PI/4,0);
+            this.zigzag4.rotation.set(0,-Math.PI/4,0);
+            this.zigzag3.rotation.set(0,Math.PI/4,0);
+            this.zigzag1.rotation.set(0,Math.PI/4,0);
+        }
+
+        
 
         if(this.counter >= 100 && this.counter <=300){
             this.tunelLight1.color.setHex(0xC4DA0D);
@@ -263,6 +326,7 @@ class World extends THREE.Mesh{
 
 
         this.counter++;
+        this.counter2++;
 
 
         this.Life1.rotation.set(0,this.LifeRotation,0);
