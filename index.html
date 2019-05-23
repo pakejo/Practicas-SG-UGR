@@ -5,6 +5,7 @@
 <head>
     <title>SubZero Light</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="CSS/style.css" type="text/css">
     <script type="text/javascript" src="libs/three.min.js"></script>
     <script type="text/javascript" src="libs/jquery.js"></script>
     <script type="text/javascript" src="libs/dat.gui.js"></script>
@@ -21,6 +22,7 @@
     <script type="text/javascript" src="Ship.js"></script>
     <script type="text/javascript" src="World.js"></script>
     <script type="text/javascript" src="Track.js"></script>
+    <script type="text/javascript" src="UI.js"></script>
     <script type="text/javascript" src="MyScene.js"></script>
     <script type="text/javascript" src="script.js"></script>
 
@@ -47,7 +49,20 @@
 
     <!-- Div which will hold the Output -->
     <div id="WebGL-output">
+        <div id="cronometro">
+                <div class="reloj" id="Minutos">00</div>
+                <div class="reloj" id="Segundos">:00</div>
+                <div class="reloj" id="Centesimas">:00</div>
+        </div>
+
+        <div id="vidas">
+            <img class="heart" src="img/vida.png">
+            <img class="heart" src="img/vida.png">
+            <img class="heart" src="img/vida.png">
+        </div>
     </div>
+
+
 </body>
 
 </html>

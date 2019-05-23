@@ -261,8 +261,6 @@ class World extends THREE.Mesh{
             this.tunelLight2.color.setHex(0x0E2FB8);
         }
 
-        
-        
 
         this.counter++;
 
