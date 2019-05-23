@@ -172,7 +172,7 @@ class World extends THREE.Mesh{
         this.building1Mesh.position.set(0,25,-27);
 
         this.add(this.world);
-        //this.add(this.building1Mesh);
+        this.add(this.building1Mesh);
         //this.add(torus);
         this.add(cylinderMesh);
         this.add(this.cross2);
