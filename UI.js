@@ -6,24 +6,37 @@ class GUI {
         this.segundos = 0;
         this.minutos = 0;
         this.control = null;
-        this.lifes = 0;
+        this.lifes = 3;
     }
 
     lostLife() {
+        var contenedor = document.getElementById("vidas");
+        var vidas = document.getElementsByClassName("heart");
+
+        if(this.lifes != 0)
+        {
+            var vidaPerdida = contenedor.removeChild(vidas[0]);
+            this.lifes--;
+        }
 
     }
 
     winLife() {
-        var lifes = document.getElementsByClassName("heart");
+        var lifes = document.getElementById("vidas");
 
-        if(lifes.length < 3)
-            lifes[0].insertAdjacentHTML('beforebegin', "<img class=\"heart\" src=\"img/vida.png\">");
+        if(this.lifes < 3)
+        {
+            lifes.insertAdjacentHTML('afterbegin', "<img class=\"heart\" src=\"img/vida.png\">");
+            this.lifes++;
+        }
+        
 
     }
 
     cronometroStart() {
         this.control = setInterval(this.cronometro, 10);
     }
+
 
     cronometro() {
         if (this.centesimas < 99) {
@@ -45,7 +58,7 @@ class GUI {
         if ((this.centesimas == 0) && (this.segundos == 0)) {
             this.minutos++;
             if (this.minutos < 10) { this.minutos = "0" + this.minutos }
-            Minutos.innerHTML = ":" + this.minutos;
+            Minutos.innerHTML = this.minutos;
         }
 
     }

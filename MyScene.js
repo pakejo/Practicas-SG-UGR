@@ -31,8 +31,12 @@ class MyScene extends THREE.Scene {
     this.ship = new Ship(this.track.spline());
     this.add(this.ship);
 
+    // Sistema de colisiones
+    this.colliderSystem  = new THREEx.ColliderSystem();
+    this.collitionsControl();
 
-
+    // Inicio del juego (evita que se ejecuten los listener de las colisiones al crearlas)
+    this.gameStart = false;
   }
 
   createCamera(unRenderer) {
@@ -113,28 +117,53 @@ class MyScene extends THREE.Scene {
 
   collitionsControl() {
 
-    // Obtenemos el mesh de la nave
-    this.colliders.push(this.ship.getShip());
+    var that = this;
 
     // Añadimos los objetos del mundo para colisiones
-  
+    var obstaculos = this.world.getObstacles();
+
+    for(var i = 0; i < obstaculos.length; i++)
+    {
+      var collider = new THREEx.Collider.createFromObject3d(obstaculos[i]);
+      this.colliders.push(collider);
+    }
+
+
+    // La nave
+    var colliderShip = new THREEx.Collider.createFromObject3d(this.ship.getShip());
+
+    colliderShip.addEventListener('contactEnter', function(otherCollider){
+
+      if(that.gameStart)
+      {
+        if(otherCollider.id < 2)
+          that.ship.winLife();
+        else
+          that.ship.lostLife();
+      }
+    });
+
+    this.colliders.push(colliderShip);
 
   }
 
-  update() {
-    // Se muestran o no los ejes según lo que idique la GUI
-    //this.axis.visible = this.guiControls.axisOnOff;
+  start()
+  {
+    this.gameStart = true;
+  }
 
+  update() {
     // Se actualiza la posición de la cámara según su controlador
     this.cameraControl.update();
     this.world.update();
     this.ship.update();
 
     // Control de colisiones
-
-    /* this.colliderSystem.computeAndNotify(this.colliders);
-    this.colliders[0].update();
-    this.colliders[1].update();*/
+    for(var i = 0; i< this.colliders.length; i++)
+     this.colliders[i].update();
+     
+    this.colliderSystem.computeAndNotify(this.colliders);
+    
 
   }
 }
