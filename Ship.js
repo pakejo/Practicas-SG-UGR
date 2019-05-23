@@ -157,7 +157,7 @@ class Ship extends THREE.Mesh {
         this.camera = this.createCamera();
         this.ship.add(this.camera);
         
-        this.ship.position.set( -0.581841*20, (0.151374*20) +20 , -1.466418*20 );
+        this.ship.position.set( -0.581841*20, (0.151374*20) +22 , -1.466418*20 );
 
         this.add(this.ship);
 
@@ -188,8 +188,7 @@ class Ship extends THREE.Mesh {
         this.ship.rotateY(-Math.PI/2);
 
         // Inicio de la carrera
-        this.cronometroInjiciado = false;
-        this.UI.cronometroStart();
+        this.cronometroIniciado = false;
     }
 
     createCamera() {
@@ -226,8 +225,11 @@ class Ship extends THREE.Mesh {
 
         this.ship.translateZ(this.movimientoLateral);
 
-        if(!this.cronometroInjiciado)
+        if(!this.cronometroIniciado)
+        {
             this.UI.cronometroStart();
+            this.cronometroIniciado = true;
+        }
     }
 
     left(){
@@ -247,7 +249,6 @@ class Ship extends THREE.Mesh {
     leftOnly() {
         this.ship.translateZ(-0.3);
         this.movimientoLateral -= 0.3;
-        this.UI.winLife();
     }
 
     rightOnly() {

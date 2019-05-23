@@ -8,15 +8,10 @@ class MyScene extends THREE.Scene {
   constructor(unRenderer) {
     super();
 
-    //this.updateMatrixWorld(true);
+    // Control de colisiones
+    this.colliders = [];
 
-    // Se añade a la gui los controles para manipular los elementos de esta clase
-    //this.createGUI();
-
-    // Construimos los distinos elementos que tendremos en la escena
-
-    // Todo elemento que se desee sea tenido en cuenta en el renderizado de la escena debe pertenecer a esta. Bien como hijo de la escena (this en esta clase) o como hijo de un elemento que ya esté en la escena.
-    // Tras crear cada elemento se añadirá a la escena con   this.add(variable)
+    // Iluminacion de la escena
     this.createLights();
 
     // Tendremos una cámara con un control de movimiento con el ratón
@@ -89,27 +84,6 @@ class MyScene extends THREE.Scene {
     this.cameraControl.target = look;*/
   }
 
-  createGUI() {
-    // Se definen los controles que se modificarán desde la GUI
-    // En este caso la intensidad de la luz y si se muestran o no los ejes
-    this.guiControls = new function () {
-      // En el contexto de una función   this   alude a la función
-      this.lightIntensity = 0.5;
-      this.axisOnOff = true;
-    }
-
-    // Accedemos a la variable global   gui   declarada en   script.js   para añadirle la parte de interfaz que corresponde a los elementos de esta clase
-
-    // Se crea una sección para los controles de esta clase
-    var folder = gui.addFolder('Luz y Ejes');
-
-    // Se le añade un control para la intensidad de la luz
-    folder.add(this.guiControls, 'lightIntensity', 0, 1, 0.1).name('Intensidad de la Luz : ');
-
-    // Y otro para mostrar u ocultar los ejes
-    folder.add(this.guiControls, 'axisOnOff').name('Mostrar ejes : ');
-  }
-
   createLights() {
     // Se crea una luz ambiental, evita que se vean complentamente negras las zonas donde no incide de manera directa una fuente de luz
     // La luz ambiental solo tiene un color y una intensidad
@@ -137,6 +111,15 @@ class MyScene extends THREE.Scene {
     this.camera.updateProjectionMatrix();
   }
 
+  collitionsControl() {
+
+    // Obtenemos el mesh de la nave
+    this.colliders.push(this.ship.getShip());
+
+    // Añadimos los objetos del mundo para colisiones
+  
+
+  }
 
   update() {
     // Se muestran o no los ejes según lo que idique la GUI
@@ -146,6 +129,12 @@ class MyScene extends THREE.Scene {
     this.cameraControl.update();
     this.world.update();
     this.ship.update();
+
+    // Control de colisiones
+
+    /* this.colliderSystem.computeAndNotify(this.colliders);
+    this.colliders[0].update();
+    this.colliders[1].update();*/
 
   }
 }
