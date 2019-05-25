@@ -26,15 +26,6 @@ class World extends THREE.Mesh{
         var hole1bsp = new ThreeBSP(hole1);
         var skyscraper1bsp = new ThreeBSP(skyscraper1);
         var building1 = skyscraper1bsp.subtract(hole1bsp);
-        //------
-
-        //Toro
-        /*var torus = new THREE.Mesh();
-            torus.geometry = new THREE.TorusGeometry(20,6,30,200,6.3);
-            torus.material = new THREE.MeshNormalMaterial();
-
-        torus.rotateY(-Math.PI/6);
-        torus.position.set(70,70,0);*/
         //--------------------
 
         var cylinder = new THREE.Mesh();
@@ -55,19 +46,13 @@ class World extends THREE.Mesh{
         cylinderMesh.rotateZ(Math.PI/4);
         cylinderMesh.position.set(140,50,-40);
 
-        /*var hole1 = new THREE.CubeGeometry(140,20,40);
-
-        var hole1bsp = new ThreeBSP(hole1);
-        var skyscraper1bsp = new ThreeBSP(skyscraper1);
-        var building1 = skyscraper1bsp.subtract(hole1bsp);*/
-
         //Cross
         this.cross1 = new THREE.Mesh();
         this.cross1.geometry = new THREE.BoxGeometry(3,40,3);
         this.cross1.material = new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('imgs/lightning_texture.jpg')});
 
         this.cross1.rotateX(Math.PI/4);
-        this.cross1.position.set(0,30,-188);
+        this.cross1.position.set(0,5,-188);
 
         this.crossRotation = 0.0;
         //------------------------------
@@ -190,16 +175,6 @@ class World extends THREE.Mesh{
             new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('imgs/criminal-impact_rt.jpg'),side: THREE.DoubleSide}),
             new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('imgs/criminal-impact_lf.jpg'),side: THREE.DoubleSide})  
         ];
-
-        /*var shader = THREE.ShaderLib["cube"];
-        var uniforms = THREE.UniformsUtils.clone( shader.uniforms );
-        uniforms['tCube'].texture= this.texture;  
-
-        this.material = new THREE.ShaderMaterial({
-            fragmentShader    : shader.fragmentShader,
-            vertexShader  : shader.vertexShader,
-            uniforms  : uniforms
-        });*/
         
 
         this.worldMaterial = new THREE.MeshFaceMaterial(this.texture);
@@ -269,6 +244,11 @@ class World extends THREE.Mesh{
     
     }
 
+    /**
+     * Usao por la escena para obtener una lista
+     * con todos los objetos con los que puede 
+     * colisionar la nave
+     */
     getObstacles() {
         var lista = [];
 
@@ -290,8 +270,12 @@ class World extends THREE.Mesh{
         return lista;
     }
 
+    /**
+     * Funcion encargada de las animacion 
+     * de los obstaculos de la escena 
+     */
     update(){
-        this.crossRotation += 0.08;
+        this.crossRotation += 0.05;
         this.clockRotation += 0.04;
         this.LifeRotation += 0.02;
         this.SunOfDeathRotation +=0.03;
