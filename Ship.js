@@ -165,13 +165,14 @@ class Ship extends THREE.Mesh {
         this.add(this.ship);
 
 
-        // Posicion iniical de la nave al comenzar el juego
-        var posicion = this.spline.getPointAt(0.0);
+        // Posicion iniical de la nave al comenzar el juego (en la meta)
+        var posicion = this.spline.getPointAt(0.7540000000000006);
         this.ship.position.copy(posicion);
-        var tangente = this.spline.getTangentAt(0.0);
+        var tangente = this.spline.getTangentAt(0.7540000000000006);
         posicion.add(tangente);
         this.ship.lookAt(posicion);
         this.ship.rotateY(-Math.PI / 2);
+        this.t = 0.7540000000000006
 
         // Inicio de la carrera
         this.cronometroIniciado = false;
@@ -340,6 +341,7 @@ class Ship extends THREE.Mesh {
                 location.reload(true);
         }
 
+        console.log(this.t);
     }
 
 }

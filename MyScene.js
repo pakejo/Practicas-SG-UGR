@@ -5,7 +5,7 @@
  */
 
 class MyScene extends THREE.Scene {
-  constructor(unRenderer) {
+  constructor() {
     super();
 
     // Control de colisiones
@@ -13,9 +13,6 @@ class MyScene extends THREE.Scene {
 
     // Iluminacion de la escena
     this.createLights();
-
-    // Tendremos una cámara con un control de movimiento con el ratón
-    this.createCamera(unRenderer);
 
     // Por último creamos el objeto de revolucion, como una instancia de una clase propia, que gestionará su creación y la interacción con la misma
     this.world = new World();
@@ -33,55 +30,6 @@ class MyScene extends THREE.Scene {
 
     // Inicio del juego (evita que se ejecuten los listener de las colisiones al crearlas)
     this.gameStart = false;
-  }
-
-  createCamera(unRenderer) {
-    //-----Quitar el */ para poner la camara de la nave linea 43 y 62
-
-
-    // Para crear una cámara le indicamos
-    //   El ángulo del campo de visión en grados sexagesimales
-    //   La razón de aspecto ancho/alto
-    //   Los planos de recorte cercano y lejano
-    this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 4000);
-    // También se indica dónde se coloca
-    this.camera.position.set(20, 10, 20);
-    // Y hacia dónde mira
-    //var look = new THREE.Vector3(0, 0, 0);
-    //this.camera.lookAt(look);
-    this.add(this.camera);
-
-    // Para el control de cámara usamos una clase que ya tiene implementado los movimientos de órbita
-    this.cameraControl = new THREE.TrackballControls(this.camera, unRenderer);
-    // Se configuran las velocidades de los movimientos
-    this.cameraControl.rotateSpeed = 5;
-    this.cameraControl.zoomSpeed = -2;
-    this.cameraControl.panSpeed = 0.5;
-    // Debe orbitar con respecto al punto de mira de la cámara
-    //this.cameraControl.target = look;
-
-    //------------------------------------
-
-    /*// Para crear una cámara le indicamos
-     //   El ángulo del campo de visión en grados sexagesimales
-     //   La razón de aspecto ancho/alto
-     //   Los planos de recorte cercano y lejano
-     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 400000);
-     // También se indica dónde se coloca
-     this.camera.position.set(-150,25,-150);
-     // Y hacia dónde mira
-     var look = new THREE.Vector3(0, 0, 0);
-     this.camera.lookAt(look);
-     this.add(this.camera);
- 
-     // Para el control de cámara usamos una clase que ya tiene implementado los movimientos de órbita
-     this.cameraControl = new THREE.TrackballControls(this.camera, unRenderer);
-     // Se configuran las velocidades de los movimientos
-     this.cameraControl.rotateSpeed = 5;
-     this.cameraControl.zoomSpeed = -2;
-     this.cameraControl.panSpeed = 0.5;
-     // Debe orbitar con respecto al punto de mira de la cámara
-     this.cameraControl.target = look;*/
   }
 
   /**

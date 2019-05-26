@@ -2,8 +2,7 @@ class Track extends THREE.Mesh {
 
     constructor() {
         super();
-
-        this.modelo;
+        
         var that = this;
 
         var loader = new THREE.OBJLoader2();

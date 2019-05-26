@@ -40,7 +40,7 @@ class GUI {
         var lifes = document.getElementById("vidas");
 
         if (this.lifes < 3) {
-            lifes.insertAdjacentHTML('afterbegin', "<img class=\"heart\" src=\"img/vida.png\">");
+            lifes.insertAdjacentHTML('afterbegin', "<img class=\"heart\" src=\"imgs/vida.png\">");
             this.lifes++;
         }
 

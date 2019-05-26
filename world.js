@@ -220,28 +220,6 @@ class World extends THREE.Mesh{
         });
         //--------------------------------
 
-        //Lights--------
-        //var lightHeart1 = new THREE.DirectionalLight(0xff0000,30,7,2);
-        var lightHeart1 = new THREE.PointLight(0xff0000,30,7,2);
-        lightHeart1.position.set(-180,19,-115);
-        this.add(lightHeart1);
-    
-        var lightHeart2 = new THREE.PointLight(0xff0000,30,7,2);
-        lightHeart2.position.set(-49,23, 0);
-        this.add(lightHeart2);
-
-
-        //this.tunelLight1 = new THREE.DirectionalLight(0xff0000,50,20,2);
-        this.tunelLight1 = new THREE.PointLight(0xff0000,50,20,2);
-        this.tunelLight1.position.set(-20,27,-5);
-        this.add(this.tunelLight1);
-
-        this.tunelLight2 = new THREE.PointLight(0x0E2FB8,50,20,2);
-        this.tunelLight2.position.set(0,27,-50);
-        this.add(this.tunelLight2);
-    
-        //----------------
-    
     }
 
     /**
