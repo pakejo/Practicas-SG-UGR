@@ -114,7 +114,6 @@ class MyScene extends THREE.Scene {
    */
   update() {
     // Se actualiza la posición de la cámara según su controlador
-    this.cameraControl.update();
     this.world.update();
     this.ship.update();
 

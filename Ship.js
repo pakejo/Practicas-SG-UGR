@@ -268,8 +268,11 @@ class Ship extends THREE.Mesh {
      * avanzando
      */
     leftOnly() {
-        this.ship.translateZ(-0.3);
-        this.movimientoLateral -= 0.3;
+        if(this.movimientoLateral >= -9)
+        {
+            this.ship.translateZ(-0.3);
+            this.movimientoLateral -= 0.3;
+        }
     }
 
     /**
@@ -278,8 +281,11 @@ class Ship extends THREE.Mesh {
      * avanzando
      */
     rightOnly() {
-        this.ship.translateZ(0.3);
-        this.movimientoLateral += 0.3;
+        if(this.movimientoLateral <= 9)
+        {
+            this.ship.translateZ(0.3);
+            this.movimientoLateral += 0.3;
+        }
     }
 
     /**
@@ -341,7 +347,6 @@ class Ship extends THREE.Mesh {
                 location.reload(true);
         }
 
-        console.log(this.t);
     }
 
 }

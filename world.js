@@ -256,7 +256,7 @@ class World extends THREE.Mesh{
         this.crossRotation += 0.05;
         this.clockRotation += 0.04;
         this.LifeRotation += 0.02;
-        this.SunOfDeathRotation +=0.03;
+        this.SunOfDeathRotation +=0.06;
 
         this.SunOfDeath.rotation.set(0,-this.SunOfDeathRotation,0);
 
@@ -289,25 +289,7 @@ class World extends THREE.Mesh{
             this.zigzag1.rotation.set(0,Math.PI/4,0);
         }
 
-        
-
-        if(this.counter >= 100 && this.counter <=300){
-            this.tunelLight1.color.setHex(0xC4DA0D);
-        }else if(this.counter >= 301 && this.counter <=500){
-            this.tunelLight1.color.setHex(0x0E2FB8);
-            this.tunelLight2.color.setHex(0xC4DA0D);
-        }else if(this.counter >= 501 && this.counter <=700){
-            this.tunelLight1.color.setHex(0x720EB8);
-            this.tunelLight2.color.setHex(0x25B80E);
-        }else if(this.counter >= 701 && this.counter <=1000){
-                this.tunelLight1.color.setHex(0x25B80E);
-                this.tunelLight2.color.setHex(0x720EB8);
-        }else{
-            this.tunelLight1.color.setHex(0xff0000);
-            this.tunelLight2.color.setHex(0x0E2FB8);
-        }
-
-
+            
         this.counter++;
         this.counter2++;
 
