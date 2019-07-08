@@ -32,23 +32,6 @@ que las curvas y las cuestas se hacen automáticamente.
 
 ‐Flechas Izda y Dcha: desplazamiento lateral.
 
-¿Se continuará el proyecto?
----------------------------
-
-El proyecto, aunque en cuanto al contexto práctico de la asignatura, está terminado, se está llevando a cabo un desarrollo 
-a posteriori con el fin de mejorarlo en todos sus aspectos ya que nosotros, los desarrolladores, estamos muy entusiasmados con llevarlo muchísimo
-más lejos, por ejemplo, una de las posibilidades que se están estudiando es de pasarlo a Unreal Engine 4. Estamos, porsupuesto, abiertos a cualquier tipo de
-aportación de los usuarios para añadirle nuevas funciones y demás si nuestro tiempo nos lo permite.
-
-Cómo contactar con nosotros
----------------------------
-
-Vía e-mail:
-
-paco1998@hotmail.es
-
-sandrogarcia97@hotmail.com
-
 
 ¡IMPORTANTE!
 ------------
